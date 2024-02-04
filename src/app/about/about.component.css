@@ -1,0 +1,16 @@
+.container{
+    padding-top: 50px;
+}
+.container .row .col-md-7 h2{
+    color: #ffbc13;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: uppercase;
+}
+.container .row .col-md-7 h2::after{
+    content: '';
+    display: block;
+    position: relative;
+    width: 19%;
+    border: 2px solid rgba(51, 51, 225, 0.684);
+    margin-top: 8px;
+}

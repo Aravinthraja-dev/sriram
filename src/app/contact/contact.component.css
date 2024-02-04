@@ -1,0 +1,83 @@
+.main{
+    height: 1300px;
+}
+.container{
+    position: relative;
+    bottom: 50px;
+}
+.container .row .col .card{
+    width: 20rem; 
+    height: 400px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
+    border: none;
+}
+.container .row .col .card .card-body .card-title{
+    color: #ffbc13;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: uppercase;
+}
+.container .row .col .card .card-body h6{
+    color: #3498db;
+}
+.form{
+    padding-top: 50px;
+}
+
+::selection{
+    color: #ffffff;
+    background-color: #31285C;
+}
+.wrapper{
+    min-height:100px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
+    padding: 30px;
+}
+.input-field{
+    width: 100%;
+    height: 45px;
+    border: none;
+    padding: 10px;
+    background-color: #eeeeee;
+    color: gray;
+    outline: none;
+    font-size: 15px;
+    margin-bottom: 20px;
+    transition: .5s;
+    border-radius: 5px;
+}
+.heading{
+    color: #ffbc13;
+    margin-bottom: 20px;
+} 
+.heading p{ 
+    color: #3498db;
+}
+button{
+    width: 100%;
+    height: 45px;
+    border: none;
+    color: #FFFFFF;
+    background-color: #ffbc13;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 500;
+    transition: 0.3s;
+} 
+button:hover{
+    background-color: #31283B;
+}
+.error-message{
+    display: inline-block;
+    line-height: 100%;
+    margin: 0 0 10px 0;
+    color: #cc0033;
+    border: none;
+    background-color: #ffffff;
+}
+@media (max-width: 600px) {
+    .main {
+      height: 2500px;
+    }
+}
