@@ -18,6 +18,7 @@ import { MainprojectComponent } from './home/mainproject/mainproject.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { BannerComponent } from './home/banner/banner.component';
 import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FooterComponent } from './footer/footer.component';
     MainprojectComponent,
     BannerComponent,
     FooterComponent,
-  ],
+    LoginComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

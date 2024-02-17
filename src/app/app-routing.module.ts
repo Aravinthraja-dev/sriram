@@ -6,6 +6,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { TeamComponent } from './team/team.component';
 import { ServiceComponent } from './service/service.component';
 import { ContactComponent } from './contact/contact.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path:'',component: HomeComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path:'projects',component: ProjectsComponent },
   { path:'team',component: TeamComponent },
   { path:'service',component: ServiceComponent },
-  { path:'contact',component: ContactComponent }
+  { path:'contact',component: ContactComponent },
+  { path: 'login', component: LoginComponent },
   
 ];
 
