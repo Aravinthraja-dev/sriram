@@ -47,7 +47,14 @@
     border-color: #007bff;
     outline: none;
   }
-  
+  .error-message{
+    display: inline-block;
+    line-height: 100%;
+    margin: 10px 0 10px 0;
+    color: #cc0033;
+    border: none;
+    background-color: #ffffff;
+  }
   button {
     padding: 15px;
     border: none;

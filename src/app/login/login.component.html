@@ -1,20 +1,34 @@
 <div class="login-container form-signin w-100 m-auto">
-    <form class="login-form">
+    <form [formGroup]="login" #f="ngForm" class="login-form">
       <h1>Welcome Back</h1>
       <p>Please login to your account</p>
       <div class="input-group">
         <input 
+        formControlName="username"
         type="text" 
         id="username" 
         name="username" 
         placeholder="Username">
+        <div *ngIf="all.username.touched && all.username.invalid" class="error-message">
+          <small *ngIf="all.username.hasError('required')">Username is Required</small>
+          <small *ngIf="all.username.hasError('minlength')">Name should be minimum 3 Characters</small>
+          <small *ngIf="all.username.hasError('maxlength')">Name should be maximum 20 Characters</small>
+        </div>
       </div>
+
       <div class="input-group">
-        <input 
+        <input
+        formControlName="password" 
         type="password" 
         id="password" 
         name="password" 
         placeholder="Password">
+        <div *ngIf="all.password.touched && all.password.invalid" class="error-message">
+          <small *ngIf="all.password.hasError('required')">Password is Required</small>
+          <small *ngIf="all.password.hasError('pattern')">Password should be Atleast one uppercase, one lowercase, one number,
+            one special-character
+          </small>
+        </div>
       </div>
       <button type="submit">Login</button>
       <div class="bottom-text">
