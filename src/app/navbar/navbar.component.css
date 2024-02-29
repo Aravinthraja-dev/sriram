@@ -1,3 +1,7 @@
+.border-bottom{
+    height: 50px;
+}
+
 nav{
     background-color: #ffbc13;
 }
@@ -53,4 +57,7 @@ nav{
 }
 .navbar .container .navbar-collapse .navbar-nav .dropdown-menu{
     background-color: #ffbc13;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
 }

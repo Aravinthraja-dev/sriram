@@ -7,15 +7,41 @@ import { TeamComponent } from './team/team.component';
 import { ServiceComponent } from './service/service.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
+import { AdminProjectComponent } from './admin/admin-project/admin-project.component';
 
 const routes: Routes = [
-  { path:'',component: HomeComponent },
-  { path:'about',component: AboutComponent },
-  { path:'projects',component: ProjectsComponent },
-  { path:'team',component: TeamComponent },
-  { path:'service',component: ServiceComponent },
-  { path:'contact',component: ContactComponent },
-  { path: 'login', component: LoginComponent },
+  { 
+    path:'',
+    component: HomeComponent 
+  },
+  { 
+    path:'about',
+    component: AboutComponent 
+  },
+  { 
+    path:'projects',
+    component: ProjectsComponent 
+  },
+  { 
+    path:'team',
+    component: TeamComponent 
+  },
+  { 
+    path:'service',
+    component: ServiceComponent 
+  },
+  { 
+    path:'contact',
+    component: ContactComponent 
+  },
+  { 
+    path: 'login', 
+    component: LoginComponent 
+  },
+  { 
+    path: 'dashboard', 
+    component: AdminProjectComponent 
+  }
   
 ];
 

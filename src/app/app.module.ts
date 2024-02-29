@@ -19,6 +19,10 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { BannerComponent } from './home/banner/banner.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment';
+import { AdminProjectComponent } from './admin/admin-project/admin-project.component'; 
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import { LoginComponent } from './login/login.component';
     MainprojectComponent,
     BannerComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    AdminProjectComponent,
     ],
   imports: [
     BrowserModule,
@@ -44,6 +49,8 @@ import { LoginComponent } from './login/login.component';
     NgImageSliderModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

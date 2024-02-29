@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,6 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   login = new FormGroup({
     username: new FormControl('',[
@@ -22,5 +26,13 @@ export class LoginComponent {
   
   get all(){
     return this.login.controls;
+  }
+
+  loginWithGoogle(){
+    this.authService.signInWithGoogle().then((res:any) => {
+      this.router.navigateByUrl('dashboard');
+    }).catch((error:any)=>{
+      console.error(error);
+    })
   }
 }
