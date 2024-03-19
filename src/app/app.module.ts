@@ -21,8 +21,14 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment';
 import { AdminProjectComponent } from './admin/admin-project/admin-project.component'; 
+import { AuthService } from 'src/services/auth.service';
+import { AuthGuardService } from 'src/services/auth-guard.service';
+import { UserService } from 'src/services/user.service';
 
 @NgModule({
   declarations: [
@@ -51,8 +57,15 @@ import { AdminProjectComponent } from './admin/admin-project/admin-project.compo
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
+    AngularFirestoreModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuardService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

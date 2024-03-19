@@ -8,6 +8,7 @@ import { ServiceComponent } from './service/service.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { AdminProjectComponent } from './admin/admin-project/admin-project.component';
+import { AuthGuardService } from 'src/services/auth-guard.service';
 
 const routes: Routes = [
   { 
@@ -36,11 +37,12 @@ const routes: Routes = [
   },
   { 
     path: 'login', 
-    component: LoginComponent 
+    component: LoginComponent
   },
   { 
     path: 'dashboard', 
-    component: AdminProjectComponent 
+    component: AdminProjectComponent, 
+    canActivate: [AuthGuardService]
   }
   
 ];

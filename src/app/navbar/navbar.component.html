@@ -7,12 +7,14 @@
       <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">9.00am to 9.00pm</a></li>
     </ul>
     <ul class="nav">
-      <li class="nav-item"><a routerLink="login" class="nav-link link-body-emphasis px-2">Login</a></li>
-      <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Sign up</a></li>
+      <ng-template #anonymousUser>
+        <li class="nav-item"><a routerLink="login" class="nav-link link-body-emphasis px-2">Admin</a></li>
+      </ng-template>
+      <li class="nav-item"><a *ngIf="auth.user$ | async as user; else anonymousUser" class="nav-link link-body-emphasis px-2">{{ user.displayName }}</a></li>
     </ul>
   </div>
 </nav>
-<nav class="navbar navbar-expand-lg sticky-top navbar-dark" aria-label="Offcanvas navbar large">
+<nav *ngIf="auth.isUserLoggedIn" class="navbar navbar-expand-lg sticky-top navbar-dark" aria-label="Offcanvas navbar large">
   <div class="container">
     <div class="logo">
         <img routerLink="/" src="assets/SR--03.png"/>
@@ -43,6 +45,36 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" (click)="toggleNavbar()" routerLink="contact">Contact Us</a>
+          </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+<nav *ngIf="auth.isAdminLoggedIn" class="navbar navbar-expand-lg sticky-top navbar-dark" aria-label="Offcanvas navbar large">
+  <div class="container">
+    <div class="logo">
+        <img routerLink="/" src="assets/SR--03.png"/>
+        <h1 class="navbar-brand">GROUPS</h1>
+    </div>
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div [ngbCollapse]="isCollapsed" class="navbar-collapse">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item dropdown" ngbDropdown>
+            <a class="nav-link dropdown-toggle" routerLink="projects" role="button" data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+              Manage Projects
+            </a>
+            <ul class="dropdown-menu" ngbDropdownMenu>
+              <li><a class="dropdown-item" (click)="toggleNavbar()"  href="#">On Progress</a></li>
+              <li><a class="dropdown-item" (click)="toggleNavbar()"  href="#">Completed Project</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="toggleNavbar()" routerLink="team">User Queries</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="toggleNavbar()"  (click)="logout()">Log Out</a>
           </li>
         </ul>
     </div>

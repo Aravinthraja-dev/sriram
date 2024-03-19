@@ -10,7 +10,7 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class LoginComponent {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   login = new FormGroup({
     username: new FormControl('',[
@@ -29,8 +29,9 @@ export class LoginComponent {
   }
 
   loginWithGoogle(){
-    this.authService.signInWithGoogle().then((res:any) => {
-      this.router.navigateByUrl('dashboard');
+    this.auth.signInWithGoogle().then((res:any) => {
+      this.auth.isAdminLoggedIn = true;
+      this.auth.isUserLoggedIn = false;
     }).catch((error:any)=>{
       console.error(error);
     })
