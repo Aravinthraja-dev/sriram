@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdminAuthGuardService } from 'src/services/admin-auth-guard.service';
 import { AuthService } from 'src/services/auth.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class LoginComponent {
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router, private admin: AdminAuthGuardService) { }
 
   login = new FormGroup({
     username: new FormControl('',[
@@ -30,8 +31,6 @@ export class LoginComponent {
 
   loginWithGoogle(){
     this.auth.signInWithGoogle().then((res:any) => {
-      this.auth.isAdminLoggedIn = true;
-      this.auth.isUserLoggedIn = false;
     }).catch((error:any)=>{
       console.error(error);
     })

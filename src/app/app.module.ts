@@ -29,6 +29,7 @@ import { AdminProjectComponent } from './admin/admin-project/admin-project.compo
 import { AuthService } from 'src/services/auth.service';
 import { AuthGuardService } from 'src/services/auth-guard.service';
 import { UserService } from 'src/services/user.service';
+import { AdminAuthGuardService } from 'src/services/admin-auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { UserService } from 'src/services/user.service';
   providers: [
     AuthService,
     AuthGuardService,
-    UserService
+    UserService,
+    AdminAuthGuardService
   ],
   bootstrap: [AppComponent]
 })

@@ -9,6 +9,7 @@ import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { AdminProjectComponent } from './admin/admin-project/admin-project.component';
 import { AuthGuardService } from 'src/services/auth-guard.service';
+import { AdminAuthGuardService } from 'src/services/admin-auth-guard.service';
 
 const routes: Routes = [
   { 
@@ -42,7 +43,7 @@ const routes: Routes = [
   { 
     path: 'dashboard', 
     component: AdminProjectComponent, 
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService, AdminAuthGuardService]
   }
   
 ];

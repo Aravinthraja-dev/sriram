@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { ActivatedRoute } from '@angular/router';
+import { AppUser } from 'src/model/app-user';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 export class AuthService {
 
   user$: Observable<firebase.User | null>;
-  isUserLoggedIn = true;
-  isAdminLoggedIn = false;
 
-  constructor(private afs: AngularFireAuth, private route: ActivatedRoute) {
+  constructor(private afs: AngularFireAuth, private route: ActivatedRoute, private userService: UserService) {
     this.user$ = afs.authState;
    }
 
@@ -25,15 +25,17 @@ export class AuthService {
     return this.afs.signInWithPopup(new GoogleAuthProvider());
   }
 
-  registerWithEmailAndPassword(user: {email: string, password: string}){
-    return this.afs.createUserWithEmailAndPassword(user.email, user.password);
-  }
-
-  signInWithEmailAndPassword(user: {email: string, password: string}){
-    return this.afs.signInWithEmailAndPassword(user.email, user.password);
-  }
-
   logout(){
     return this.afs.signOut();
   }
+
+  get appUser$() : Observable<AppUser | null>{
+    return this.user$.pipe(
+      switchMap(user => {
+        if(user)
+          return this.userService.get(<any>user.uid).valueChanges();
+
+        return of(null)
+      }))   
+    }
 }

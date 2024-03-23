@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppUser } from 'src/model/app-user';
 import { AuthService } from 'src/services/auth.service';
 
 @Component({
@@ -8,9 +9,12 @@ import { AuthService } from 'src/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-
-    
-  constructor(public auth: AuthService, private route: Router) { }
+  appUser: AppUser | any;
+   
+  
+  constructor(public auth: AuthService, private route: Router) { 
+    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+  }
 
   isCollapsed = true;
 
@@ -20,10 +24,7 @@ export class NavbarComponent {
 
   logout(){
     this.auth.logout().then((res:any) => {
-      this.auth.isAdminLoggedIn = false;
-      this.auth.isUserLoggedIn = true;
       this.route.navigate(['/']);
-
     }).catch((error:any)=>{
       console.error(error);
     });
