@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { AdminProjectComponent } from './admin/admin-project/admin-project.component';
 import { AuthGuardService } from 'src/services/auth-guard.service';
 import { AdminAuthGuardService } from 'src/services/admin-auth-guard.service';
+import { ProductFormComponent } from './admin/project-form/product-form.component';
 
 const routes: Routes = [
   { 
@@ -41,8 +42,13 @@ const routes: Routes = [
     component: LoginComponent
   },
   { 
-    path: 'dashboard', 
+    path: 'admin/dashboard', 
     component: AdminProjectComponent, 
+    canActivate: [AuthGuardService, AdminAuthGuardService]
+  },
+  { 
+    path: 'admin/dashboard/new', 
+    component: ProductFormComponent, 
     canActivate: [AuthGuardService, AdminAuthGuardService]
   }
   

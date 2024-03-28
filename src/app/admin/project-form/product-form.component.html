@@ -1,0 +1,105 @@
+<div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalTour">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-body p-5">
+        <h2 class="fw-bold mb-0">New Project</h2>
+        <hr>
+          <form class="row g-3 align-items-center" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+            <div class="col-4">
+              <label for="projectTitle" class="col-form-label">Project Title</label>
+            </div>
+            <div class="col-8">
+              <input 
+              id="projectTitle" 
+              type="text"  
+              class="form-control" 
+              formControlName="projectTitle"
+              aria-describedby="passwordHelpInline">
+              <div *ngIf="projectForm.controls['projectTitle'].invalid && (projectForm.controls['projectTitle'].touched || projectForm.controls['projectTitle'].dirty)" class="error-message">
+                <small *ngIf="projectForm.controls['projectTitle'].errors?.['required']">Project Title is Required</small>
+                <small *ngIf="projectForm.controls['projectTitle'].errors?.['minlength']">Project Title should be minimum 3 Characters</small>
+                <small *ngIf="projectForm.controls['projectTitle'].errors?.['maxlength']">Project Title should be maximum 50 Characters</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="projectId" class="col-form-label">Project ID</label>
+            </div>
+            <div class="col-8">
+              <input 
+              id="projectId" 
+              class="form-control"
+              type="text" 
+              formControlName="projectId"
+              aria-describedby="passwordHelpInline">
+              <div *ngIf="projectForm.controls['projectId'].invalid && (projectForm.controls['projectId'].touched || projectForm.controls['projectId'].dirty)" class="error-message">
+                <small *ngIf="projectForm.controls['projectId'].errors?.['required']">ProjectID is Required</small>
+                <small *ngIf="projectForm.controls['projectId'].errors?.['pattern']">Avoid special characters; use letters and numbers</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="prjectInr" class="col-form-label">INR</label>
+            </div>
+            <div class="col-8">
+              <input 
+              id="prjectInr"
+              type="text"
+              class="form-control"
+              formControlName="projectInr">
+              <div *ngIf="projectForm.controls['projectInr'].invalid && (projectForm.controls['projectInr'].touched || projectForm.controls['projectInr'].dirty)" class="error-message">
+                <small *ngIf="projectForm.controls['projectInr'].errors?.['required']">INR is Required</small>
+                <small *ngIf="projectForm.controls['projectInr'].errors?.['min']">INR should be 0 or higher</small>
+                <small *ngIf="projectForm.controls['projectInr'].errors?.['pattern']">Avoid special characters; use numbers  and letters</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="imageUrl" class="col-form-label">Image Url</label>
+            </div>
+            <div class="col-8">
+              <input 
+              id="imageUrl"
+              type="text" 
+              class="form-control"
+              formControlName="imageUrl">
+              <div *ngIf="projectForm.controls['imageUrl'].invalid && (projectForm.controls['imageUrl'].touched || projectForm.controls['imageUrl'].dirty)" class="error-message">
+                <small *ngIf="projectForm.controls['imageUrl'].errors?.['required']">Image Url is Required</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="projectStatus" class="col-form-label">Status</label>
+            </div>
+            <div class="col-8">
+              <select 
+                id="projectStatus"
+                formControlName="projectStatus"
+                class="form-control">
+                <option>Select</option>
+                <option *ngFor="let s of status$ | async" [value]="s.$key">
+                  {{ s.name }}
+                </option>
+              </select>
+              <div *ngIf="projectForm.controls['projectStatus'].invalid && (projectForm.controls['projectStatus'].touched || projectForm.controls['projectStatus'].dirty)" class="error-message">
+                <small *ngIf="projectForm.controls['projectStatus'].errors?.['required']">Project Status is Required</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="projectDescription" class="col-form-label">Project Description</label>
+            </div>
+            <div class="col-8">
+              <textarea
+               id="projectDescription"
+               type="text"
+               formControlName="projectDescription"
+               class="form-control">
+              </textarea>
+              <div *ngIf="projectForm.controls['projectDescription'].invalid && (projectForm.controls['projectDescription'].touched || projectForm.controls['projectDescription'].dirty)" class="error-message">
+                <small *ngIf="projectForm.controls['projectDescription'].errors?.['required']">Project Description is Required</small>
+                <small *ngIf="projectForm.controls['projectDescription'].errors?.['maxlength']">Project Description should be maximum 100 Characters</small>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
