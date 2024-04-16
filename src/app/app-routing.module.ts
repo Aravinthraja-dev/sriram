@@ -38,7 +38,7 @@ const routes: Routes = [
     component: ContactComponent 
   },
   { 
-    path: 'login', 
+    path: 'admin', 
     component: LoginComponent
   },
   { 
@@ -48,6 +48,11 @@ const routes: Routes = [
   },
   { 
     path: 'admin/dashboard/new', 
+    component: ProductFormComponent, 
+    canActivate: [AuthGuardService, AdminAuthGuardService]
+  },
+  { 
+    path: 'admin/dashboard/:id', 
     component: ProductFormComponent, 
     canActivate: [AuthGuardService, AdminAuthGuardService]
   }

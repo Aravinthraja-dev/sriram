@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ProjectService } from 'src/services/project.service';
 
 @Component({
   selector: 'app-admin-project',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AdminProjectComponent {
 
+  projects$:any;
+
+  constructor(private projectService: ProjectService) { 
+    this.projects$ =  this.projectService.getAll()
+  }
 }
