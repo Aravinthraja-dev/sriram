@@ -32,12 +32,18 @@ export class ProductFormComponent{
 
   save(project:any){   
     if(this.id){
-      //this.projectService.update(this.id,product);
+      this.projectService.update(this.id,project);
     }
     else{
       this.projectService.create(project);
     }
     this.route.navigate(['/admin/dashboard']);
+  }
+
+  delete(){
+    if(!confirm("Are you want to delete this project")) return;
+      this.projectService.delete(this.id);
+      this.route.navigate(['/admin/dashboard']);
   }
 }
 

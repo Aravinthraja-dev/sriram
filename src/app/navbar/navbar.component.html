@@ -39,9 +39,16 @@
                 Our Projects
               </a>
               <ul class="dropdown-menu" ngbDropdownMenu>
-                <li><a class="dropdown-item" (click)="toggleNavbar()"  href="#">On Progress</a></li>
-                <li><a class="dropdown-item" (click)="toggleNavbar()"  href="#">Completed Project</a></li>
-              </ul>
+                <li>
+                  <a 
+                    *ngFor="let s of status$ | async" 
+                    routerLink="projects"
+                    [queryParams]="{ projectStatus: s.$key }"
+                    class="dropdown-item" (click)="toggleNavbar()" ngbDropdownItem>
+                    {{ s.name }}
+                  </a>
+                </li>
+            </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link" (click)="toggleNavbar()" routerLink="team">Our Team</a>
@@ -56,7 +63,7 @@
             <!----Admin navbar--->
           <ng-container *ngIf="appUser?.isAdmin">
             <li class="nav-item dropdown" ngbDropdown>
-              <a class="nav-link dropdown-toggle" routerLink="admin/dashboard" role="button" data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+              <a class="nav-link dropdown-toggle" routerLink="admin/dashboard" (click)="toggleNavbar()" role="button" data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
                 Manage Projects
               </a>
               <ul class="dropdown-menu" ngbDropdownMenu>

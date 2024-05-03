@@ -155,13 +155,14 @@
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
+          <button type="submit" class="btn btn-primary btn-lg mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
+          <button type="button" class="btn btn-danger btn-lg" (click)="delete()">Delete</button>
         </form>
       </div>
       <div class="col-md-6">
-        <div class="card" style="width: 34rem;">
+        <div *ngIf="project.projectTitle" class="card" style="width: 34rem;">
           <div class="card-body">
-            <h5 class="card-text">{{ project.projectTitle }}</h5>
+            <h2 class="card-text">{{ project.projectTitle }}</h2>
             <p class="card-text">{{ project.projectId }}</p>
           </div>
           <img [src]="project.imageUrl" class="card-img-top">

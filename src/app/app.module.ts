@@ -6,6 +6,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -37,7 +40,6 @@ import { AdminAuthGuardService } from 'src/services/admin-auth-guard.service';
 import { StatusService } from 'src/services/status.service';
 import { ProjectService } from 'src/services/project.service';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +57,7 @@ import { ProjectService } from 'src/services/project.service';
     FooterComponent,
     LoginComponent,
     AdminProjectComponent,
-    ProductFormComponent
+    ProductFormComponent,
     ],
   imports: [
     BrowserModule,
@@ -68,7 +70,10 @@ import { ProjectService } from 'src/services/project.service';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
   providers: [
     AuthService,

@@ -1,1 +1,37 @@
-<p>projects works!</p>
+<main>
+  <div class="carousel-inner">
+    <div class="carousel-item active">    
+      <img [src]="projectBanner" alt="" width="100%" height="400px">
+      <div class="container">
+        <div class="carousel-caption text-start">
+          <h1 class="carouselTitle">Project</h1>
+          <p class="opacity-75">"Projects are the heartbeat of progress, each pulse a step towards innovation."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="row">
+        <ng-container *ngFor="let p of filteredProject; let i = index">
+          <div class="col">
+            <div  class="card shadow-sm" style="width: 22rem; height: 420px;">
+              <img [src]="p.imageUrl" class="bd-placeholder-img card-img-top" width="100%" height="225" role="img"> 
+                <div class="card-body">
+                  <p class="card-text">{{ p.projectDescription }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                      <h1 class="card-text">{{ p.projectTitle }}</h1>
+                      <p class="card-text">{{ p.projectInr }}</p>
+                  </div>
+                  <p class="text-body-secondary">{{ p.projectStatus }}</p>
+                </div>
+            </div>
+          </div>
+          <div *ngIf="(i+1) % 3 === 0" class="w-100"></div>
+          <br>
+        </ng-container>
+      </div>            
+    </div>
+  </div>
+</main>
