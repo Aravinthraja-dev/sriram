@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ContactForm } from 'src/model/contact-form';
+import { ContactServiceService } from 'src/services/contact-service.service';
 declare const L : any;
 
 @Component({
@@ -11,7 +14,10 @@ export class ContactComponent implements OnInit{
   bannerurl = "assets/AboutBan.jpg";
   office = "assets/office.png";
   phone = "assets/phone.png";
-  email = "assets/email.png"
+  email = "assets/email.png";
+  messageSent: boolean = false;
+
+  constructor(private contactApi: ContactServiceService, private route: Router) { }
 
   ngOnInit(): void {
     if(!navigator.geolocation){
@@ -32,7 +38,7 @@ export class ContactComponent implements OnInit{
 
         let marker = L.marker([coords.latitude, coords.longitude]).addTo(map);
 
-        marker.bindPopup('<b>hi</b>').openPopup();
+        marker.bindPopup('<b>Sri Ram Contruction</b>').openPopup();
     });
     this.watchPosition();
   }
@@ -54,23 +60,25 @@ export class ContactComponent implements OnInit{
   }
 
   form = new FormGroup({
-    username: new FormControl('',[
-      Validators.required,
-      Validators.maxLength(15),
-      Validators.minLength(3)
-    ]),
-    email: new FormControl('',[
-      Validators.required,
-      Validators.email
-    ]),
-    message: new FormControl('',[
-      Validators.required,
-      Validators.minLength(10)
-    ])
-  });
+    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    message: new FormControl('', [Validators.required])
+  })
 
   get all(){
     return this.form.controls;
   }
 
+  onSubmit(contactForm: ContactForm){
+    this.contactApi.addUsers(contactForm)
+      .then(() => {
+        this.messageSent = true; 
+        this.form.reset();
+      })
+      .catch((error) => {
+        console.error("Error sending message:", error);
+        this.messageSent = false;
+      });
+  }
 }
+

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AdminModule } from './admin/admin.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -39,6 +40,7 @@ import { UserService } from 'src/services/user.service';
 import { AdminAuthGuardService } from 'src/services/admin-auth-guard.service';
 import { StatusService } from 'src/services/status.service';
 import { ProjectService } from 'src/services/project.service';
+import { ContactServiceService } from 'src/services/contact-service.service';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { ProjectService } from 'src/services/project.service';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    AdminModule
   ],
   providers: [
     AuthService,
@@ -81,7 +84,8 @@ import { ProjectService } from 'src/services/project.service';
     UserService,
     AdminAuthGuardService, 
     StatusService,
-    ProjectService
+    ProjectService,
+    ContactServiceService
   ],
   bootstrap: [AppComponent]
 })

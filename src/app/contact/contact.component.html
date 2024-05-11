@@ -52,54 +52,60 @@
               <h2>Contact Us</h2>
               <p>"Contact us to construct your vision"</p>
             </div>
-            <form [formGroup]="form" #f="ngForm">
-              <div class="input-group">
+            <form [formGroup]="form" #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+              <div class="mb-3">
                 <input 
                 name="username"
                 formControlName="username"
                 type="text" 
                 id="username" 
-                class="input-field" 
+                class="input-control" 
                 placeholder="Your Name">
-                <div *ngIf="all.username.touched && all.username.invalid" class="error-message">
-                  <small *ngIf="all.username.hasError('required')">Username is Required</small>
-                  <small *ngIf="all.username.hasError('minlength')">Name should be minimum 3 Characters</small>
-                  <small *ngIf="all.username.hasError('maxlength')">Name should be maximum 20 Characters</small>
+                <div *ngIf="all['username'].touched && all['username'].invalid" class="error-message">
+                  <small *ngIf="all['username'].hasError('required')">Username is Required</small>
+                  <small *ngIf="all['username'].hasError('minlength')">Name should be minimum 3 Characters</small>
+                  <small *ngIf="all['username'].hasError('maxlength')">Name should be maximum 20 Characters</small>
                 </div>
               </div>
-              <div class="input-group">
+              <div class="mb-3">
                 <input 
                 name="email"
                 formControlName="email"
                 type="email" 
                 id="email" 
-                class="input-field" 
+                class="input-control" 
                 placeholder="Your email" >
+                <div *ngIf="all['email'].touched && all['email'].invalid" class="error-message">
+                  <small *ngIf="all['email'].hasError('required')">Email is Required</small>
+                  <small *ngIf="all['email'].hasError('email')">Email should be abc@gmail format</small>
+                </div>
               </div>
-              <div *ngIf="all.email.touched && all.email.invalid" class="error-message">
-                <small *ngIf="all.email.hasError('required')">Email is Required</small>
-                <small *ngIf="all.email.hasError('email')">Email should be abc@gmail format</small>
-              </div>
-              <div class="input-group">
+              <div class="mb-3">
                 <textarea 
                 name="message"
                 formControlName="message"
                 type="text" 
                 id="message" 
-                class="input-field" 
+                class="input-control" 
                 placeholder="Enter your Message"></textarea>
-                <div *ngIf="all.message.touched && all.message.invalid" class="error-message">
-                  <small *ngIf="all.message.hasError('required')">Message is Required</small>
+                <div *ngIf="all['message'].touched && all['message'].invalid" class="error-message">
+                  <small *ngIf="all['message'].hasError('required')">Message is Required</small>
                 </div>
               </div>
-              <div class="input-group">
-                <button>Send Message</button>
+              <button type="submit" [disabled]="!form.valid">Send Message</button>
+              <div *ngIf="messageSent; else errorMessage" class="success-message">
+                Your message has been sent successfully!
               </div>
+              <ng-template #errorMessage>
+                <div *ngIf="f.submitted && messageSent" class="error-message">
+                  Your message could not be sent. Please try again later.
+                </div>
+              </ng-template>
             </form>
           </div> 
         </div>
         <div class="col-md-7 order-md-1">
-          <div id="map" style="height: 60vh;"></div>
+          <div id="map" style="height: 75vh;"></div>
         </div>
       </div>
     </div>

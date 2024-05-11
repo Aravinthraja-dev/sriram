@@ -11,7 +11,7 @@ import { UserService } from 'src/services/user.service';
 export class AppComponent {
   title = 'sriram';
 
-  constructor(private auth: AuthService, router: Router, userService: UserService, ) { 
+  constructor(private auth: AuthService, router: Router, userService: UserService) { 
     auth.user$.subscribe((user:any) => {
       if(!user) return;
         userService.save(user);
@@ -23,4 +23,5 @@ export class AppComponent {
    
     });
   }
+
 }
