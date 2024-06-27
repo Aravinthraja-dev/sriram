@@ -1,0 +1,114 @@
+<div class="main">
+  <div class="carousel-item active">
+    <img [src]="bannerurl" alt="" width="100%" height="400px">
+    <div class="container">
+      <div class="carousel-caption text-start">
+        <h1>Get in Touch</h1>
+        <p class="opacity-75">"Looking forward to discussing exciting opportunities with you."</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <div class="col">
+            <div class="card">
+              <img [src]="office" class="card-img-top" alt="..." height="200px">
+              <div class="card-body">
+                <h5 class="card-title">Office</h5>
+                <h6>Main Address</h6>
+                <p class="card-text">Harur - Karimangalam road, near to Sriram Complex, Kambainallur, Karimangalam Tk, Dharmapuri Dist.</p>
+                <p class="card-text">Pincode - 635202</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img [src]="phone" class="card-img-top" alt="..." height="200px">
+              <div class="card-body">
+                <h5 class="card-title">Phone</h5>
+                <h6>Sriram Tar Plant</h6>
+                <p class="card-text">9443267209</p>
+                <h6>Sriram Agencis (IOCL)</h6>
+                <p class="card-text">9788588439</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img [src]="email" class="card-img-top" alt="..." height="200px">
+              <div class="card-body">
+                <h5 class="card-title">Mail</h5>
+                <h6>Personal Email</h6>
+                <p class="card-text">mvediappan45&#64;gmail.com</p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="container form">
+      <div class="row featurette">
+        <div class="col-md-5 order-md-2">
+          <div class="wrapper">
+            <div class="heading">
+              <h2>Contact Us</h2>
+              <p>"Contact us to construct your vision"</p>
+            </div>
+            <form [formGroup]="form" #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+              <div class="mb-3">
+                <input 
+                name="username"
+                formControlName="username"
+                type="text" 
+                id="username" 
+                class="input-control" 
+                placeholder="Your Name">
+                <div *ngIf="all['username'].touched && all['username'].invalid" class="error-message">
+                  <small *ngIf="all['username'].hasError('required')">Username is Required</small>
+                  <small *ngIf="all['username'].hasError('minlength')">Name should be minimum 3 Characters</small>
+                  <small *ngIf="all['username'].hasError('maxlength')">Name should be maximum 20 Characters</small>
+                </div>
+              </div>
+              <div class="mb-3">
+                <input 
+                name="email"
+                formControlName="email"
+                type="email" 
+                id="email" 
+                class="input-control" 
+                placeholder="Your email" >
+                <div *ngIf="all['email'].touched && all['email'].invalid" class="error-message">
+                  <small *ngIf="all['email'].hasError('required')">Email is Required</small>
+                  <small *ngIf="all['email'].hasError('email')">Email should be abc&#64;gmail format</small>
+                </div>
+              </div>
+              <div class="mb-3">
+                <textarea 
+                name="message"
+                formControlName="message"
+                type="text" 
+                id="message" 
+                class="input-control" 
+                placeholder="Enter your Message"></textarea>
+                <div *ngIf="all['message'].touched && all['message'].invalid" class="error-message">
+                  <small *ngIf="all['message'].hasError('required')">Message is Required</small>
+                </div>
+              </div>
+              <button type="submit" [disabled]="!form.valid">Send Message</button>
+              <div *ngIf="messageSent; else errorMessage" class="success-message">
+                Your message has been sent successfully!
+              </div>
+              <ng-template #errorMessage>
+                <div *ngIf="f.submitted && messageSent" class="error-message">
+                  Your message could not be sent. Please try again later.
+                </div>
+              </ng-template>
+            </form>
+          </div> 
+        </div>
+        <div class="col-md-7 order-md-1">
+          <div id="map" style="height: 75vh;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/services/auth.service';
-import { UserService } from 'src/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import { UserService } from 'src/services/user.service';
 export class AppComponent {
   title = 'sriram';
 
-  constructor(private auth: AuthService, router: Router, userService: UserService) { 
+  constructor(private auth: AuthService, router: Router, public userService: UserService) { 
     auth.user$.subscribe((user:any) => {
       if(!user) return;
         userService.save(user);
@@ -20,8 +20,10 @@ export class AppComponent {
       if(!returnUrl) return;
         localStorage.removeItem('returnUrl');
         router.navigateByUrl(returnUrl);
-   
     });
   }
-
+  @HostListener('window:beforeunload', ['$event'])
+  unloadHandler(event: Event) {
+    this.auth.logout();
+  }
 }

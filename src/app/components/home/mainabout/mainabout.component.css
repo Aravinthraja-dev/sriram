@@ -1,0 +1,10 @@
+.container-fluid{
+    background-size: cover;
+}
+.container-fluid .container .col-lg-6 p{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.btn:hover {
+    box-shadow: 0 15px 20px rgba(48, 84, 229, 0.896);
+    transform: translateY(-3px);
+}

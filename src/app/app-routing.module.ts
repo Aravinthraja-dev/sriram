@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { TeamComponent } from './team/team.component';
-import { ServiceComponent } from './service/service.component';
-import { ContactComponent } from './contact/contact.component';
-import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { TeamComponent } from './components/team/team.component';
+import { ServiceComponent } from './components/service/service.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
+  {
+    path:'', redirectTo:'/home', pathMatch:'full'
+  },
   { 
-    path:'',
+    path:'home',
     component: HomeComponent 
   },
   { 
@@ -34,12 +37,12 @@ const routes: Routes = [
     component: ContactComponent 
   },
   { 
-    path: 'admin', 
+    path: 'home/admin', 
     component: LoginComponent
   },
   {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
+    path: 'home/admin',
+    loadChildren: () => import('./components/admin/admin.module').then(mod => mod.AdminModule)
   }
 ];
 

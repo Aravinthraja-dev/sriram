@@ -1,0 +1,13 @@
+<div class="slider">
+	<ngb-carousel *ngIf="imageUrls" (slide)="onSlide($event)">
+		<ng-template ngbSlide *ngFor="let imageUrl of imageUrls; let i = index">
+		  <div class="picsum-img-wrapper">
+			<img [src]="imageUrl" [alt]="'Random slide ' + (i + 1)" class="carousel-image" />
+		  </div>
+		  <div class="carousel-caption">
+			<h3 class="sliderTitle">{{ titleNames[i] }}</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		  </div>
+		</ng-template>
+	</ngb-carousel>
+</div>

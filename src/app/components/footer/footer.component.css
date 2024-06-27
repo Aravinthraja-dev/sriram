@@ -1,0 +1,10 @@
+.footer{
+    
+    background-color: #1a1a1a;
+}
+.footer .subfooter{
+    background-color: #ffbc13;
+}
+.container .row .col .txt{
+    color: white;
+}

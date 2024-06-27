@@ -1,0 +1,13 @@
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.carousel-inner .carousel-item .container .carouselTitle,.opacity-75{
+    color: rgb(237, 244, 244);
+}
+.album .container .row .col p{
+    color: black;
+
+}
+.album .container .row .col h1{
+    color: #ffbc13;
+}
