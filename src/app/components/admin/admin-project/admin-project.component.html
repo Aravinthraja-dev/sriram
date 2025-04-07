@@ -24,55 +24,45 @@
         </ul>
       </div>
     </nav>
-  
+
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button routerLink="/admin/dashboard/new" type="button" class="btn btn-outline-primary">Add Project</button>            
+            <button routerLink="/admin/dashboard/new" type="button" class="btn btn-outline-primary">Add Project</button>
           </div>
         </div>
       </div>
-  
+
       <h2>Project</h2>
-      <!-- Projects Section -->
-      <section class="projectSection">
+     <!--  <section class="projectSection">
         <p>
-          <input
-            #query
-            (keyup)="onFilter(query.value)"
-            type="text"
-            class="form-control"
-            placeholder="Search..."
-          />
+          <input #query (keyup)="onFilter(query.value)" type="text" class="form-control" placeholder="Search..." />
         </p>
         <table class="table table-hover" mat-table [dataSource]="dataSource" matSort #sortProject="matSort">
-          <!-- Project Title Column -->
+          
           <ng-container matColumnDef="projectTitle">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Project Title</th>
             <td mat-cell *matCellDef="let element">{{ element.projectTitle }}</td>
           </ng-container>
 
-          <!-- Project Description Column -->
           <ng-container matColumnDef="projectDescription">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Project Description</th>
             <td mat-cell *matCellDef="let element">{{ element.projectDescription }}</td>
           </ng-container>
 
-          <!-- Project INR Column -->
           <ng-container matColumnDef="projectInr">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Project INR</th>
             <td mat-cell *matCellDef="let element">{{ element.projectInr }}</td>
           </ng-container>
 
-          <!-- Project Status Column -->
           <ng-container matColumnDef="projectStatus">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Project Status</th>
             <td mat-cell *matCellDef="let element">{{ element.projectStatus | uppercase }}</td>
           </ng-container>
 
-          <!-- Edit Column -->
           <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element" class="text-end">
@@ -83,37 +73,114 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons #paginatorProject="matPaginator"></mat-paginator>
-      </section>
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+          #paginatorProject="matPaginator"></mat-paginator>
+      </section> -->
+
+      <div class="card">
+        <p-table #dt2 [value]="projects" [rows]="10" dataKey="id" [loading]="loading"
+          [rowsPerPageOptions]="[10, 25, 50]" [globalFilterFields]="['title', 'category']" [paginator]="true"
+          [tableStyle]="{ 'min-width': '60rem' }">
+          <ng-template #caption>
+            <div class="flex flex-wrap items-center gap-2 w-full">
+              <div class="flex-1">
+                <p-iconfield iconPosition="left" class="w-full">
+                  <p-inputicon>
+                    <i class="pi pi-search"></i>
+                  </p-inputicon>
+                  <input pInputText type="text" (input)="applyGlobalFilter($event, dt2)" placeholder="Search keyword"
+                    class="w-full p-2" />
+                </p-iconfield>
+              </div>
+              <p-button label="Add Product" [outlined]="true" icon="pi pi-plus" (click)="addNewProject()"
+                class="whitespace-nowrap" />
+            </div>
+
+          </ng-template>
+          <ng-template #header>
+            <tr>
+              <th pSortableColumn="title" style="width:20%">
+                Project Title
+                <p-sortIcon field="title" />
+                <p-columnFilter field="representative" matchMode="in" [showClearButton]="false" display="menu"
+                  [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                  <ng-template #filter let-filter="filterCallback">
+                    <p-multiselect [(ngModel)]="selectedRepresentatives" [options]="representatives" placeholder="Any"
+                      (onChange)="filterRepresentatives($event)" [panelStyle]="{ minWidth: '16rem' }">
+                      <ng-template let-option #item>
+                        <div class="flex items-center gap-2">
+                          <span>{{ option }}</span>
+                        </div>
+                      </ng-template>
+                    </p-multiselect>
+                  </ng-template>
+                </p-columnFilter>
+              </th>
+              <th>Project Image</th>
+              <th>Project Description</th>
+              <th>Project Status
+                <p-columnFilter field="category" [showClearButton]="false" matchMode="in" display="menu"
+                  [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                  <ng-template #filter let-filter="filterCallback">
+                    <p-multiselect [(ngModel)]="selectedStatus" [options]="status" placeholder="Any"
+                      (onChange)="filterStatus($event)" [panelStyle]="{ minWidth: '16rem' }">
+                      <ng-template let-option #item>
+                        <div class="flex items-center gap-2">
+                          <span>{{ option }}</span>
+                        </div>
+                      </ng-template>
+                    </p-multiselect>
+                  </ng-template>
+                </p-columnFilter>
+              </th>
+              <th>Project INR</th>
+              <th colspan="2" style="text-align: center;">Action</th>
+            </tr>
+          </ng-template>
+          <ng-template #body let-product>
+            <tr>
+              <td>{{ product.projectTitle }}</td>
+              <td>
+                <img [src]="product.imageUrl" [alt]="product.projectTitle" class="w-24 rounded" width="50px" height="50px" />
+              </td>
+              <td>{{ product.projectDescription }}</td>
+              <td>{{ product.projectStatus | uppercase }}</td>
+              <td>{{ product.projectInr | currency: '₹' }}</td>
+              <td><p-button label="Edit" severity="warn" (onClick)="editProject(product.key)" /></td>
+              <td>
+                <p-button label="Delete" severity="danger" (onClick)="confirm($event, product.key)" />
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+
 
       <!-- Inbox Section -->
-      <section class="inboxSection">
+      <!-- <section class="inboxSection">
         <h2>Inbox</h2>
         <table class="table table-hover" mat-table [dataSource]="messageSource" matSort #sortMessage="matSort">
-            <!-- S.No Column -->
+
           <ng-container matColumnDef="sno">
             <th mat-header-cell *matHeaderCellDef>#</th>
             <td mat-cell *matCellDef="let element; let i = index">{{ getSerialNumber(i) }}</td>
           </ng-container>
-            <!-- Username Column -->
           <ng-container matColumnDef="username">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
             <td mat-cell *matCellDef="let element">{{ element.username }}</td>
           </ng-container>
 
-            <!-- Email Column -->
           <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
             <td mat-cell *matCellDef="let element">{{ element.email }}</td>
           </ng-container>
 
-            <!-- Message Column -->
           <ng-container matColumnDef="message">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Message</th>
             <td mat-cell *matCellDef="let element">{{ element.message }}</td>
           </ng-container>
 
-            <!-- Edit Column -->
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element">
@@ -124,10 +191,10 @@
           <tr mat-header-row *matHeaderRowDef="displayedMessageColums"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedMessageColums"></tr>
         </table>
-        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons #paginatorMessage="matPaginator"></mat-paginator>
-      </section>
-  
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+          #paginatorMessage="matPaginator"></mat-paginator>
+      </section> -->
+
     </main>
   </div>
 </div>
-<app-footer></app-footer>

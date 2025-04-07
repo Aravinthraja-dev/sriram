@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -29,7 +31,7 @@ export class LoginComponent {
 
   loginWithGoogle(){
     this.auth.signInWithGoogle().then((res:any) => {
-
+      console.log('Lazy Loading activated')
     }).catch((error:any)=>{
       console.error(error);
     })

@@ -9,11 +9,13 @@
         id="username" 
         name="username" 
         placeholder="Username">
-        <div *ngIf="all.username.touched && all.username.invalid" class="error-message">
-          <small *ngIf="all.username.hasError('required')">Username is Required</small>
-          <small *ngIf="all.username.hasError('minlength')">Name should be minimum 3 Characters</small>
-          <small *ngIf="all.username.hasError('maxlength')">Name should be maximum 20 Characters</small>
-        </div>
+        @if (all.username.touched && all.username.invalid) {
+          <div class="error-message">
+            @if (all.username.hasError('required')) { <small>Username is Required</small> }
+            @if (all.username.hasError('minlength')) { <small>Name should be minimum 3 Characters</small> }
+            @if (all.username.hasError('maxlength')) { <small>Name should be maximum 20 Characters</small> }
+          </div>
+        }
       </div>
 
       <div class="input-group">
@@ -23,12 +25,14 @@
         id="password" 
         name="password" 
         placeholder="Password">
-        <div *ngIf="all.password.touched && all.password.invalid" class="error-message">
-          <small *ngIf="all.password.hasError('required')">Password is Required</small>
-          <small *ngIf="all.password.hasError('pattern')">Password should be Atleast one uppercase, one lowercase, one number,
-            one special-character
-          </small>
-        </div>
+        @if (all.password.touched && all.password.invalid) {
+          <div class="error-message">
+            @if (all.password.hasError('required')) { <small>Password is Required</small> }
+            @if (all.password.hasError('pattern')) { <small>Password should be Atleast one uppercase, one lowercase, one number,
+              one special-character
+            </small> }
+          </div>
+        }
       </div>
       <button type="submit">Login</button>
       <div class="bottom-text">
@@ -38,4 +42,3 @@
       <button (click)="loginWithGoogle()" class="btn btn-primary">Login with Google</button>
     </form>
 </div>
-<app-footer></app-footer>

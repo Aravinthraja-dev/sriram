@@ -8,13 +8,14 @@
     content: '';
     display: block;
     position: relative;
-    width: 12%;
-    border: 2px solid rgba(51, 51, 225, 0.684);
+    width: 17%;
+    border: 2px solid #0A1931;
     margin-top: 8px;
 }
 
 .heading, .subheading{
-    color: #4439ec;
+    color: #0A1931;
+    font-size: 20px;
 }
 .count{
     color: #ffbc13;
@@ -24,4 +25,22 @@
 .text{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: justify;
+}
+
+@media (max-width: 768px) {
+    .container h1::after{
+        width: 75%;
+    }
+}
+
+@media (min-width: 768px ) {
+    .container h1::after{
+        width: 33%;
+    }
+}
+
+@media (min-width: 992px) {
+    .container h1::after{
+        width: 25%;
+    }
 }

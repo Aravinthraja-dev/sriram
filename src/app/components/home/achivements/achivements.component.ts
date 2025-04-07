@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { NgStyle } from '@angular/common';
 
 @Component({
-  selector: 'app-achivements',
-  standalone: false,
-  templateUrl: './achivements.component.html',
-  styleUrl: './achivements.component.css'
+    selector: 'app-achivements',
+    templateUrl: './achivements.component.html',
+    styleUrl: './achivements.component.css',
+    standalone: true,
+    imports: [NgStyle]
 })
 export class AchivementsComponent {
   bgabout = "assets/achiveBackground.jpg"

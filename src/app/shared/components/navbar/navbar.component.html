@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark" aria-label="Offcanvas navbar large">
+  <div class="container">
+    <div class="logo">
+      <img routerLink="/home" src="assets/SR--03.png" />
+      <h1 class="navbar-brand">GROUPS</h1>
+    </div>
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div [ngbCollapse]="isCollapsed" class="navbar-collapse">
+      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <!-- <ng-container *ngIf="isLoading">
+            <li class="nav-item">
+              <a class="nav-link">Loading....</a>
+            </li>
+          </ng-container> -->
+        <!-- <ng-container *ngIf="!isLoading"> -->
+        <!----user navbar--->
+        @if (!appUser?.isAdmin) {
+        <ng-container>
+          <li class="nav-item">
+            <a 
+              class="nav-link"
+              [class.active]="isActive('/about')" 
+              (click)="navigateToRoute('about')" 
+              >
+              Who we are
+            </a>
+          </li>
+          <li class="nav-item">
+            <a 
+              class="nav-link" 
+              (click)="navigateToRoute('projects')"  
+              [class.active]="isActive('/projects')" 
+              >
+              Our Projects
+            </a>
+          </li>
+          <li class="nav-item">
+            <a 
+              class="nav-link" 
+              (click)="navigateToRoute('service')"
+              [class.active]="isActive('/service')"
+              >
+              Our Service
+            </a>
+          </li>
+          <li class="nav-item">
+            <a 
+              class="nav-link" 
+              (click)="navigateToRoute('contact')"
+              [class.active]="isActive('/contact')"
+              >
+              Contact Us
+            </a>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="btn btn-outline-primary">
+              <i class="fi fi-rr-phone-call"></i>
+              9443267209
+            </button>
+          </li>
+        </ng-container>
+        }
+        <!----Admin navbar--->
+        @if (appUser?.isAdmin) {
+        <ng-container>
+          <li class="nav-item dropdown" ngbDropdown>
+            <a class="nav-link dropdown-toggle" routerLink="admin/dashboard" (click)="toggleNavbar()" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+              Manage Projects
+            </a>
+            <ul class="dropdown-menu" ngbDropdownMenu>
+              <li><a class="dropdown-item" (click)="toggleNavbar()" href="#">On Progress</a></li>
+              <li><a class="dropdown-item" (click)="toggleNavbar()" href="#">Completed Project</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="toggleNavbar()" routerLink="team">User Queries</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="toggleNavbar()" (click)="logout()">Log Out</a>
+          </li>
+        </ng-container>
+        }
+        <!-- </ng-container> -->
+      </ul>
+    </div>
+  </div>
+</nav>

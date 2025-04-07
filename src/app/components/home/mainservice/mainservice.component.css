@@ -11,8 +11,8 @@
     content: '';
     display: block;
     position: relative;
-    width: 12%;
-    border: 2px solid rgba(51, 51, 225, 0.684);
+    width: 14%;
+    border: 2px solid #0A1931;
     margin-top: 8px;
 }
 .container .row .col-lg-6 h3 a{
@@ -65,3 +65,29 @@
   .btn-2:hover {
     color: white;
   }
+
+@media (max-width: 768px) {
+  .container .row .col-lg-6 img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .container .heading::after {
+    width: 50%;
+  }
+
+  .container .row .col-lg-6 {
+    margin-bottom: 20px;
+  }
+}
+@media (min-width: 768px) {
+  .container .heading::after {
+    width: 25%;
+  }
+}
+
+@media (min-width: 992px) {
+  .container .heading::after {
+    width: 20%;
+  }
+}

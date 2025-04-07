@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-mainservice',
-  templateUrl: './mainservice.component.html',
-  styleUrls: ['./mainservice.component.css']
+    selector: 'app-mainservice',
+    templateUrl: './mainservice.component.html',
+    styleUrls: ['./mainservice.component.css'],
+    standalone: true
 })
 export class MainserviceComponent {
   buliding = "assets/bulding.jpg";

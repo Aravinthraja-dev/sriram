@@ -1,0 +1,69 @@
+.main{
+    height: 1100px;
+}
+.container{
+    position: relative;
+    bottom: 50px;
+}
+.text{
+    padding-top: 50px;
+}
+.ioverlay-card {
+    position: relative;
+    text-align: left;
+    height: 300px;
+    width: 100%;
+}
+.ioverlay-card img {
+    height: 300px;
+    width: 100%;
+    border-radius: 4px;
+}
+    
+.ioverlay-card .card-content {
+    position: absolute;
+    top: 25px;
+    left: 20px;
+}
+
+.ioverlay-card .card-content .card-title{
+    font-size: 25px;
+}
+    
+.io-card-2 .card-content {
+    color: #fff;
+}
+
+.io-card-2 .card-link {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+}
+
+.io-card-2 .card-link a {
+    color:#fff;
+    text-decoration: none;
+    padding: 10px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.io-card-2 .card-link a:hover {
+    color:black;
+    background-color: #fff;
+}
+
+.io-card-2 .card-content .card-text {
+    line-height: 1.5;
+    padding-bottom: 10px;
+}
+@media (max-width: 600px) {
+    .main {
+      height: 2500px;
+    }
+  }

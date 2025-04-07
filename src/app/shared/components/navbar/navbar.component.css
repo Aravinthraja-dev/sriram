@@ -1,0 +1,70 @@
+*{
+    font-family: Poppins, sans-serif;
+}
+
+.border-bottom{
+    height: 50px;
+}
+nav{
+    background-color: #ffbc13;
+}
+.navbar .container img{
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    top: 0;
+    cursor: pointer;
+}
+.navbar .container h1{
+    -webkit-text-fill-color: white;
+    font-size: 25px;
+    font-family: sans-serif;
+    margin: 10px 0 0 80px;
+    text-shadow: 2px 2px 4px #000000;
+}
+.navbar .container .navbar-collapse .navbar-nav a{
+    color: white;
+    font-size: 15px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+.navbar .container .navbar-collapse .navbar-nav li{
+	padding: 5px;
+}
+.navbar .container .navbar-collapse ul li a {
+    position:relative;
+    z-index: 1;
+}
+.navbar .container .navbar-collapse ul li a:hover {
+    color: #0A1931;
+    cursor: pointer;
+}
+.navbar .container .navbar-collapse ul li a.active {
+    color: #007bff;
+    font-weight: bold; 
+}
+.navbar .container .navbar-collapse ul li a:hover:after {
+    opacity: 1;
+    height: 100%;
+}
+.navbar .container .navbar-collapse ul li button{
+    border: 1px solid white;
+    color: #ffbc13;
+    background-color: white;
+    font-size: 15px;
+}
+.navbar .container .navbar-collapse ul li button i{
+    padding-right: 5px;
+    color: #ffbc13;
+}
+
+@media (max-width: 768px) {
+    .navbar .container .navbar-collapse ul li.dropdown ul.dropdown-menu {
+        display: block;
+        position: static;
+        width: 100%;
+        background-color: #ffbc13;
+        border: none;
+    }
+}

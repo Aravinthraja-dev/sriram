@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { NgbCarousel, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-banner',
-  templateUrl: './banner.component.html',
-  styleUrls: ['./banner.component.css']
+    selector: 'app-banner',
+    templateUrl: './banner.component.html',
+    styleUrls: ['./banner.component.css'],
+    standalone: true,
+    imports: [NgIf, NgbCarousel, NgFor, NgbSlide]
 })
 export class BannerComponent {
   imageUrls: SafeResourceUrl[];
@@ -20,7 +24,5 @@ export class BannerComponent {
   onSlide(slideEvent: any) {
     const currentIndex = slideEvent.current;
     const currentTitle = this.titleNames[currentIndex];
-    console.log('Current Index:', currentIndex);
-    console.log('Current Title:', currentTitle);
   }
 }
