@@ -1,0 +1,188 @@
+<h2 class="fw-bold mb-0">{{ isEditMode? 'Edit Project' : 'New Project' }} </h2>
+<div class="container">
+  <div class="bg-body-tertiary rounded">
+    <div class="row g-4 align-items-md-center">
+      <div class="col-12 col-md-6 form-detail">
+        <!---Project Form--->
+        <form #f="ngForm" (ngSubmit)="save(f.value)" class="row g-3 align-items-center">
+          <!---Project Title--->
+          <div class="col-4">
+            <label for="projectTitle" class="col-form-label">Project Title</label>
+          </div>
+          <div class="col-8">
+            <input id="projectTitle" type="text" class="form-control" aria-describedby="passwordHelpInline" required
+              minlength="3" maxlength="50" name="projectTitle" [(ngModel)]="project.projectTitle"
+              #projectTitle="ngModel">
+            @if (projectTitle.touched && projectTitle.invalid) {
+            <div class="error-message">
+              @if (projectTitle.errors?.['required']) {
+              <div>
+                Title is required.
+              </div>
+              }
+              @if (projectTitle.errors?.['minlength']) {
+              <div>
+                Minimum length should be 3
+              </div>
+              }
+              @if (projectTitle.errors?.['maxlength']) {
+              <div>
+                Maximum length should be 3
+              </div>
+              }
+            </div>
+            }
+          </div>
+          <!---Project ID--->
+          <div class="col-4">
+            <label for="projectId" class="col-form-label">Project ID</label>
+          </div>
+          <div class="col-8">
+            <input id="projectId" class="form-control" type="text" name="projectId" required pattern="^[a-zA-Z0-9]*$"
+              [(ngModel)]="project.projectId" #projectId="ngModel">
+            @if (projectId.touched && projectId.invalid) {
+            <div class="error-message">
+              @if (projectId.errors?.['required']) {
+              <div>
+                Project ID is required.
+              </div>
+              }
+              @if (projectId.errors?.['pattern']) {
+              <div>
+                Project ID should be alphanumberic only
+              </div>
+              }
+            </div>
+            }
+          </div>
+          <!---Project INR--->
+          <div class="col-4">
+            <label for="prjectInr" class="col-form-label">INR</label>
+          </div>
+          <div class="col-8">
+            <input id="projectInr" type="text" class="form-control" name="projectInr" required pattern="^[a-zA-Z0-9]*$"
+              min="0" [(ngModel)]="project.projectInr" #projectInr="ngModel">
+            @if (projectInr.touched && projectInr.invalid) {
+            <div class="error-message">
+              @if (projectInr.errors?.['required']) {
+              <div>
+                Project INR is required.
+              </div>
+              }
+              @if (projectInr.errors?.['min']) {
+              <div>
+                Project INR should be greater than Zero.
+              </div>
+              }
+            </div>
+            }
+          </div>
+          <div class="col-4">
+            <label for="image" class="col-form-label">Upload Image</label>
+          </div>
+          <div class="col-8">
+            <app-file-input 
+              accept="image/*" 
+              [required]="true"  
+              [displayFileName]="selectedFileName"
+              (fileSelected)="onFileSelected($event)">
+            </app-file-input>
+          </div>
+          <!---Project Image URL--->
+          <!-- <div class="col-4">
+            <label for="imageUrl" class="col-form-label">Image Url</label>
+          </div>
+          <div class="col-8">
+            <input id="imageUrl" type="text" class="form-control" name="imageUrl" required
+              [(ngModel)]="project.imageUrl" #imageUrl="ngModel">
+            @if (imageUrl.touched && imageUrl.invalid) {
+            <div class="error-message">
+              @if (imageUrl.errors?.['required']) {
+              <div>
+                Image Url is required.
+              </div>
+              }
+            </div>
+            }
+          </div> -->
+          <!---Project Status--->
+          <div class="col-4">
+            <label for="projectStatus" class="col-form-label">Status</label>
+          </div>
+          <div class="col-8">
+            <select id="projectStatus" class="form-control" name="projectStatus" required
+              [(ngModel)]="project.projectStatus" #projectStatus="ngModel">
+
+              <option disabled selected value="">Select</option>
+              @for (s of status$ | async; track $index) {
+              <option [value]="s.$key">
+                {{ s.name }}
+              </option>
+              }
+            </select>
+            @if (projectStatus.touched && projectStatus.invalid) {
+            <div class="error-message">
+              @if (projectStatus.errors?.['required']) {
+              <div>
+                Project Status is required.
+              </div>
+              }
+            </div>
+            }
+          </div>
+          <!---Project Description--->
+          <div class="col-4">
+            <label for="projectDescription" class="col-form-label">Project Description</label>
+          </div>
+          <div class="col-8">
+            <textarea id="projectDescription" type="text" class="form-control" name="projectDescription" required
+              minlength="3" maxlength="100" [(ngModel)]="project.projectDescription" #projectDescription="ngModel">
+            </textarea>
+            @if (projectDescription.touched && projectDescription.invalid) {
+            <div class="error-message">
+              @if (projectDescription.errors?.['required']) {
+              <div>
+                Description is required.
+              </div>
+              }
+              @if (projectDescription.errors?.['minlength']) {
+              <div>
+                Minimum length should be 3
+              </div>
+              }
+              @if (projectDescription.errors?.['maxlength']) {
+              <div>
+                Maximum length should be 100
+              </div>
+              }
+            </div>
+            }
+          </div>
+          <div class="d-flex justify-content-between mt-2">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Great,
+              thanks!</button>
+            @if (isEditMode) {
+              <button type="button" class="btn btn-danger" (click)="openDeleteModal()">Delete</button>
+            }
+          </div>
+        </form>
+      </div>
+        <!---Side Card--->
+      <div class="col-12 col-md-6 image-preview">
+        @if (project.projectTitle) {
+        <div class="card shadow-sm">
+          <img [src]="previewImage || currentImageUrl" class="bd-placeholder-img card-img-top" role="img">
+          <div class="card-body">
+            <p class="card-text card-description">{{ project.projectDescription }}</p>
+            <p class="card-text card-title">{{ project.projectTitle }}</p>
+            <div class="card-footer">
+              <span class="card-text">{{ project.projectInr }}</span>
+              <span class="text-body-secondary card-status">{{ project.projectStatus }}</span>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

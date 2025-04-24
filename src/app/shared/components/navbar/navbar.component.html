@@ -65,18 +65,14 @@
         <!----Admin navbar--->
         @if (appUser?.isAdmin) {
         <ng-container>
-          <li class="nav-item dropdown" ngbDropdown>
-            <a class="nav-link dropdown-toggle" routerLink="admin/dashboard" (click)="toggleNavbar()" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
-              Manage Projects
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <i class="ri-notification-3-line"></i>@if (unreadMessages.length > 0) {<span class="badge badge-light">{{ unreadMessages.length }}</span>}
+              Notification
             </a>
-            <ul class="dropdown-menu" ngbDropdownMenu>
-              <li><a class="dropdown-item" (click)="toggleNavbar()" href="#">On Progress</a></li>
-              <li><a class="dropdown-item" (click)="toggleNavbar()" href="#">Completed Project</a></li>
-            </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="toggleNavbar()" routerLink="team">User Queries</a>
+            <a class="nav-link" (click)="toggleNavbar()" routerLink="team">User Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" (click)="toggleNavbar()" (click)="logout()">Log Out</a>

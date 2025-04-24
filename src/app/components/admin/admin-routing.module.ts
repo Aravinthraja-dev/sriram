@@ -3,24 +3,43 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminProjectComponent } from './admin-project/admin-project.component';
 import { AuthGuardService } from 'src/app/shared/services/auth-guard.service';
 import { AdminAuthGuardService } from 'src/app/shared/services/admin-auth-guard.service';
-import { ProductFormComponent } from './project-form/product-form.component';
+import { ProductFormComponent } from './product-form/product-form.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdminComponent } from './admin.component';
+import { AdminMessageComponent } from './admin-message/admin-message.component';
 
 const routes: Routes = [
-  { 
-    path: 'dashboard', 
-    component: AdminProjectComponent, 
-    canActivate: [AuthGuardService, AdminAuthGuardService]
+  {
+    path: '',
+    component: AdminComponent,
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },  
+      { 
+        path: 'projects-details', 
+        component: AdminProjectComponent, 
+      },
+      {
+        path: 'admin-message',
+        component: AdminMessageComponent,
+      },
+      { 
+        path: 'dashboard/new', 
+        component: ProductFormComponent, 
+      },
+      { 
+        path: 'dashboard/:id', 
+        component: ProductFormComponent, 
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      }
+    ]
   },
-  { 
-    path: 'dashboard/new', 
-    component: ProductFormComponent, 
-    canActivate: [AuthGuardService, AdminAuthGuardService]
-  },
-  { 
-    path: 'dashboard/:id', 
-    component: ProductFormComponent, 
-    canActivate: [AuthGuardService, AdminAuthGuardService]
-  }
 ];
 
 @NgModule({

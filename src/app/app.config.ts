@@ -1,5 +1,6 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
@@ -19,39 +20,36 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
+import { MatDialogModule } from '@angular/material/dialog';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
+    provideAnimations(),
     provideHttpClient(),
-    provideAnimationsAsync(),
-    providePrimeNG({
-      theme: {
-        preset: Aura
-      }
-    }),
     importProvidersFrom(
         BrowserModule, 
+        BrowserAnimationsModule,
         NgbModule, 
         NgImageSliderModule, 
         AngularFireModule.initializeApp(environment.firebaseConfig), 
         AngularFireAuthModule, 
         AngularFireDatabaseModule, 
         AngularFireStorageModule, 
-        AngularFirestoreModule),
+        AngularFirestoreModule,
+        MatDialogModule
+      ),
         AuthService,
         AuthGuardService,
         UserService,
         AdminAuthGuardService,
         StatusService,
         ProjectService,
-        ContactServiceService,
-    
+        ContactServiceService, 
   ]
 };
 

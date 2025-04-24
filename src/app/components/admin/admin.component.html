@@ -1,0 +1,83 @@
+<ng-template #content let-offcanvas>
+  <div class="offcanvas-header">
+    <h4 class="offcanvas-title">Sri Ram Groups</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+  </div>
+  <div class="offcanvas-body">
+    <!-- Mobile menu content -->
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" [routerLink]="['dashboard']" routerLinkActive="active" aria-current="page" href="#">
+          <i class="ri-home-8-line"></i>
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" [routerLink]="['projects-details']" routerLinkActive="active">
+          <i class="ri-list-view"></i>
+          Projects
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" [routerLink]="['admin-message']" routerLinkActive="active">
+          <i class="ri-message-2-line"></i>
+          Messages
+        </a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column mb-auto">
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" (click)="logout()">
+          Sign out
+        </a>
+      </li>
+    </ul>
+  </div>  
+</ng-template>
+
+
+<div class="container-fluid">
+  <div class="row dashboard">
+    <!-- Show this button only on mobile -->
+     <div class="d-flex justify-content-start m-1">
+      <button class="btn btn-outline-primary d-md-block d-lg-none" (click)="open(content)">Show Menu</button>
+     </div>
+    <!-- Sidebar -->
+    <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary d-none d-lg-block">
+      <div class="d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" 
+               [routerLink]="['dashboard']" 
+               routerLinkActive="active" 
+               >
+              <i class="ri-home-8-line"></i>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" 
+               [routerLink]="['projects-details']" 
+               routerLinkActive="active">
+              <i class="ri-list-view"></i>
+              Projects
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" 
+              [routerLink]="['admin-message']" 
+               routerLinkActive="active">
+              <i class="ri-message-2-line"></i>
+              Messages
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 dashboard-main">
+      <router-outlet/>
+    </main>
+  </div>
+</div>

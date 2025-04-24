@@ -22,9 +22,10 @@ export class AuthService {
     private afs: AngularFireAuth, 
     private route: ActivatedRoute, 
     private userService: UserService,
-    private router: Router) 
+    private router: Router,
+  ) 
     {
-      this.user$ = afs.authState.pipe(
+      this.user$ = this.afs.authState.pipe(
         switchMap(user => {
           if(user) {
             localStorage.setItem('user', JSON.stringify(user));
@@ -42,7 +43,7 @@ export class AuthService {
     }
 
     signInWithGoogle(){
-      let returnUrl =  this.route.snapshot.queryParamMap.get('returnUrl') || '/admin/dashboard';
+      let returnUrl =  this.route.snapshot.queryParamMap.get('returnUrl') || '/admin';
       localStorage.setItem('returnUrl',returnUrl);
   
       return this.afs.signInWithPopup(new GoogleAuthProvider()).then(result => {

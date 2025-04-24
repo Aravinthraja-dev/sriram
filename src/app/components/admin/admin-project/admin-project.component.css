@@ -1,3 +1,14 @@
-.container-fluid{
-    padding-top: 65px;
+.mat-table-responsive {
+    overflow-x: auto;
+  }
+  
+  /* Optional: Set minimum width for cells to prevent excessive squeezing */
+  .mat-table {
+    min-width: 800px; /* Adjust based on your content */
+  }
+
+.input-box {
+  width: 50%;
+  border-radius: 10px;
+  text-align: center;
 }

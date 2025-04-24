@@ -4,6 +4,7 @@ export interface Project {
   projectInr: string;
   projectStatus: string;
   imageUrl: string;
+  imageFileName: string;
 }
   
 export interface SlideInterface {

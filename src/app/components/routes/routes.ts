@@ -6,6 +6,8 @@ import { TeamComponent } from "../pages/team/team.component";
 import { ServiceComponent } from "../pages/service/service.component";
 import { ContactComponent } from "../pages/contact/contact.component";
 import { LoginComponent } from "../login/login.component";
+import { AuthGuardService } from "src/app/shared/services/auth-guard.service";
+import { AdminAuthGuardService } from "src/app/shared/services/admin-auth-guard.service";
 
 export const content: Routes = [
     {
@@ -38,6 +40,7 @@ export const content: Routes = [
     },
     {
         path: 'admin',
-        loadChildren: () => import('../../components/admin/admin.module').then(mod => mod.AdminModule)
+        loadChildren: () => import('../../components/admin/admin.module').then(mod => mod.AdminModule),
+        canActivate: [AuthGuardService, AdminAuthGuardService]
     },
 ]

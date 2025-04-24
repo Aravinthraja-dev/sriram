@@ -1,5 +1,5 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -13,12 +13,11 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class AppComponent implements OnInit{
   title = 'sriram';
 
-  constructor(private auth: AuthService, private router: Router, public userService: UserService) { 
+  constructor(private auth: AuthService, private router: Router, public userService: UserService, private route: ActivatedRoute) { 
 
     this.auth.user$.subscribe((user:any) => {
       if(!user) return;
 
-      console.log('Appcomponent: User found in auth state:', user);
       userService.save(user);
         
       let returnUrl  = localStorage.getItem('returnUrl');
@@ -27,10 +26,14 @@ export class AppComponent implements OnInit{
         console.log('Navigating to:',returnUrl)
         this.router.navigateByUrl(returnUrl).catch(error => console.error('Navigation error:', error))
     });
-
   }
   ngOnInit(): void {
-    // this.checkAuthentication();
+    this.checkAuthentication();
+    this.router.events.subscribe(event => {
+      if(event instanceof NavigationStart) {
+        window.scrollTo(0,0);
+      }
+    })
   }
 
   private checkAuthentication(){
@@ -38,10 +41,8 @@ export class AppComponent implements OnInit{
     if(storedUser){
       this.auth.user$.subscribe(user => {
         if(user) {
-          console.log('Authenticate user found:', user);
           this.router.navigate(['/admin/dashboard']).catch(error => console.error('Navigation error:', error));
         } else {
-          console.log('No authenticated user found, navigating to home');
           this.router.navigate(['/home']).catch(error => console.error('Navigation error:', error));
         }
       });

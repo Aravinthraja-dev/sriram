@@ -1,10 +1,13 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgbCollapse} from '@ng-bootstrap/ng-bootstrap';
 import { AppUser } from 'src/app/shared/model/app-user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { StatusService } from 'src/app/shared/services/status.service';
 import { LoaderService } from '../../services/loader.service';
+import { ProjectService } from '../../services/project.service';
+import { ContactServiceService } from '../../services/contact-service.service';
+import { ContactForm } from '../../model/contact-form';
 
 @Component({
   selector: 'app-navbar',
@@ -13,24 +16,34 @@ import { LoaderService } from '../../services/loader.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
   appUser: AppUser | any;
   status$;
   isCollapsed = true;
   isLoading = true;
   isMobile = true;
+  unreadMessages: ContactForm[] = [];
   
   constructor(
     public auth: AuthService, 
     private router: Router,
     public statusService: StatusService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private contactService: ContactServiceService
     ) { 
     this.auth.appUser$.subscribe(appUser => {
       this.appUser = appUser;
       this.isLoading = false;
     });
     this.status$ = statusService.getStatus();
+  }
+
+  ngOnInit(): void {
+   this.contactService.listenForNewMessages().subscribe(msgs => {
+      if(msgs) {
+        this.unreadMessages.push(msgs)
+      }
+    })
   }
 
   @HostListener('window:resize',['$event'])

@@ -1,0 +1,43 @@
+.dashboard {
+  margin-top: 70px;
+}
+
+.sidebar, .nav .nav-link.active {
+  background-color: rgba(13, 110, 253, 0.1);
+  color: #0d6efd !important;
+  border-left: 3px solid #0d6efd;
+}
+
+.sidebar, .nav .nav-link.active i {
+  color: white !important;
+}
+
+.sidebar, .nav .nav-link:hover:not(.active) {
+  background-color: rgba(13, 110, 253, 0.1);
+}
+
+.container-fluid .dashboard .dashboard-main {
+  position: relative;
+  width: 79%;
+  top: 20px;
+  right: 26px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  height: 500px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.container-fluid .dashboard .sidebar {
+  position: relative;
+  top: 20px;
+  left: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+@media (max-width: 768px) {
+  .container-fluid .dashboard .dashboard-main {
+    width: 100%;
+    right: 0;
+  }
+}
+

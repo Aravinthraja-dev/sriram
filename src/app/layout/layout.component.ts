@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../shared/components/footer/footer.component';
 import { Router, RouterOutlet } from '@angular/router';
@@ -17,6 +17,7 @@ export class LayoutComponent implements OnInit{
   constructor(
     private spinner: NgxSpinnerService,
     private loader: LoaderService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -34,4 +35,22 @@ export class LayoutComponent implements OnInit{
       }
     })
   }
+
+
+  @HostListener('document: keydown', ['$event'])
+  openLoginPage(event: KeyboardEvent) {
+    if(event.ctrlKey && event.key === 'l') {
+      event.preventDefault();
+      this.spinner.show();
+
+      setTimeout(() => {
+        this.router.navigate(['/login']).then(() => {
+          this.spinner.hide();
+        }).catch(error => {
+          console.error('Navigation error:', error);
+          this.spinner.hide();
+        });
+      },300)
+    }
+  } 
 }

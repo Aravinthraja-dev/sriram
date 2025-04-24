@@ -74,20 +74,6 @@
     text-transform: uppercase;
   }
 
-/* .filter {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-wrap: wrap; 
-    gap: 10px; 
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    width: 95%;
-  } */
-
   .sort-section {
     display: flex;
     flex-direction: row;

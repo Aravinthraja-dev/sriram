@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgbCarousel, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
 import { NgIf, NgFor } from '@angular/common';
@@ -19,6 +19,13 @@ export class BannerComponent {
     this.imageUrls = imageNames.map((imageName) =>
       this.sanitizer.bypassSecurityTrustResourceUrl(`assets/${imageName}.jpg`)
     );
+  }
+
+  windowWidth = window.innerWidth;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.windowWidth = window.innerWidth;
   }
 
   onSlide(slideEvent: any) {

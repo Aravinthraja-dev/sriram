@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Observable, finalize, map, switchMap } from 'rxjs';
+import { Observable,map } from 'rxjs';
 import { Project } from 'src/app/shared/model/project';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
 
-  constructor(private db: AngularFireDatabase, private storage: AngularFireStorage) { }
+  constructor(private db: AngularFireDatabase) { }
 
   create(project: any) {
     return this.db.list('/projects').push(project);
