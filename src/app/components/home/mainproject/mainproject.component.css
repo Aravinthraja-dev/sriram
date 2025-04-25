@@ -66,3 +66,9 @@
   @media (min-width: 992px) and (max-width: 1024px) {
     .container .heading::after { width: 11%; }
   }
+
+#custom-cards .card {
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  background-position: center;
+}

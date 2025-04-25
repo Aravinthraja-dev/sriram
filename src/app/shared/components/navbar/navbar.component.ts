@@ -23,6 +23,8 @@ export class NavbarComponent implements OnInit{
   isLoading = true;
   isMobile = true;
   unreadMessages: ContactForm[] = [];
+  secretTapCount = 0;
+  lastTapTime = 0;
   
   constructor(
     public auth: AuthService, 
@@ -99,5 +101,20 @@ export class NavbarComponent implements OnInit{
 
   isActive(routeOrKey: string): boolean {
     return this.router.url === routeOrKey;
+  }
+
+  handleSecretTap() {
+    const now = Date.now();
+    if(now - this.lastTapTime < 1000) {
+      this.secretTapCount++;
+    } else {
+      this.secretTapCount = 1
+    }
+    this.lastTapTime = now;
+
+    if(this.secretTapCount === 5) {
+      this.router.navigate(['/login']);
+      this.secretTapCount = 0;
+    }
   }
 }
