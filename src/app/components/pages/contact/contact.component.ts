@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router } from '@angular/router';
 import { ContactForm } from 'src/app/shared/model/contact-form';
 import { ContactServiceService } from 'src/app/shared/services/contact-service.service';
-declare const L : any;
+declare const L: any;
 
 @Component({
   selector: 'app-contact',
@@ -12,49 +12,40 @@ declare const L : any;
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css']
 })
-export class ContactComponent implements OnInit{
+export class ContactComponent implements OnInit {
   bannerurl = "assets/AboutBan.jpg";
   office = "assets/office.png";
   phone = "assets/phone.png";
   email = "assets/email.png";
   messageSent: boolean = false;
+  latitude = '12.202011662906592'
+  longitude = '78.32207100633755'
 
   constructor(private contactApi: ContactServiceService, private route: Router) { }
 
   ngOnInit(): void {
-    if(!navigator.geolocation){
-      console.log('location is not supported');
-    }
+    let map = L.map('map').setView([Number(this.latitude), Number(this.longitude)], 13);
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      const coords = position.coords;
-      console.log(
-        `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
-        );
-        let map = L.map('map').setView([coords.latitude, coords.longitude], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+    let marker = L.marker([Number(this.latitude), Number(this.longitude)]).addTo(map);
 
-        let marker = L.marker([coords.latitude, coords.longitude]).addTo(map);
-
-        marker.bindPopup('<b>Sri Ram Contruction</b>').openPopup();
-    });
-    this.watchPosition();
+    marker.bindPopup('<b>Sri Ram Contruction</b>').openPopup();
   }
-  watchPosition(){
+  watchPosition() {
     let desLat = 0;
     let desLon = 0;
     let id = navigator.geolocation.watchPosition((position) => {
       console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
-      if(position.coords.latitude === desLat){
+      if (position.coords.latitude === desLat) {
         navigator.geolocation.clearWatch(id);
       }
-    },(err) => {
+    }, (err) => {
       console.log(err);
-    },{
+    }, {
       enableHighAccuracy: true,
       timeout: 5000,
       maximumAge: 0
@@ -67,14 +58,14 @@ export class ContactComponent implements OnInit{
     message: new FormControl('', [Validators.required])
   })
 
-  get all(){
+  get all() {
     return this.form.controls;
   }
 
-  onSubmit(contactForm: ContactForm){
+  onSubmit(contactForm: ContactForm) {
     this.contactApi.addUsers(contactForm)
       .then(() => {
-        this.messageSent = true; 
+        this.messageSent = true;
         this.form.reset();
       })
       .catch((error) => {

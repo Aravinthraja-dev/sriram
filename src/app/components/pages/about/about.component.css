@@ -1,6 +1,12 @@
 *{
     font-family: Arial, Helvetica, sans-serif;
 }
+.slider {
+  width: 100%;
+  max-width: 100%;
+  margin: 68px auto 0 auto;
+}
+
 .container .row .col-md-7 h2{
     color: #ffbc13;
     font-size: 28px;
@@ -21,4 +27,16 @@
 .container div h1{
     font-size: 32px;
     color: #ffbc13;
+}
+
+.responsive-banner {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+
+@media (max-width: 768px) {
+  .responsive-banner {
+    height: 200px;
+  }
 }

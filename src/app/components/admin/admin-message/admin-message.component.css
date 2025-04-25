@@ -1,0 +1,7 @@
+.mat-table-responsive {
+  overflow-x: auto;
+}
+
+.mat-table {
+  min-width: 800px;
+}

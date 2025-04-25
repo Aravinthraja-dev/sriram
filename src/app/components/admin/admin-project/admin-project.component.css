@@ -1,11 +1,10 @@
 .mat-table-responsive {
-    overflow-x: auto;
-  }
-  
-  /* Optional: Set minimum width for cells to prevent excessive squeezing */
-  .mat-table {
-    min-width: 800px; /* Adjust based on your content */
-  }
+  overflow-x: auto;
+}
+
+.mat-table {
+  min-width: 800px;
+}
 
 .input-box {
   width: 50%;
