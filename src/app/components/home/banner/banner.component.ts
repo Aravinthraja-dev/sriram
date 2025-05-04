@@ -1,7 +1,9 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgbCarousel, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
 import { NgIf, NgFor } from '@angular/common';
+import { ImageService } from 'src/app/shared/services/image.service';
+import { ImageForm } from 'src/app/shared/model/image-form';
 
 @Component({
     selector: 'app-banner',
@@ -10,15 +12,28 @@ import { NgIf, NgFor } from '@angular/common';
     standalone: true,
     imports: [NgIf, NgbCarousel, NgFor, NgbSlide]
 })
-export class BannerComponent {
-  imageUrls: SafeResourceUrl[];
-  titleNames: string[] = ['beach', 'boat', 'forest'];
+export class BannerComponent implements OnInit{
+  imageUrls!: SafeResourceUrl[];
+  titleNames: string[] = [];
 
-  constructor(private sanitizer: DomSanitizer) {
-    const imageNames = ['banner1', 'banner2', 'banner3'];
-    this.imageUrls = imageNames.map((imageName) =>
-      this.sanitizer.bypassSecurityTrustResourceUrl(`assets/${imageName}.jpg`)
-    );
+  constructor(
+    private sanitizer: DomSanitizer, 
+    private imageService: ImageService
+  ) { }
+
+  ngOnInit(): void {
+    this.imageService.getAll().subscribe((data: any) => {
+      const bannarArray = Object.values(data);
+
+      const homeBanners = bannarArray
+        .filter((banner: any) => banner.PageCategory === 'home' && banner.PageSubCategory.startsWith('homeBanner'))
+        .sort((a :any , b : any) => a.PageSubCategory.localeCompare(b.PageSubCategory));
+
+      this.imageUrls = homeBanners.map((imageName: any) =>
+        this.sanitizer.bypassSecurityTrustResourceUrl(imageName.image));
+
+      this.titleNames = homeBanners.map((banner:any) => banner.imageTitle)
+    })
   }
 
   windowWidth = window.innerWidth;

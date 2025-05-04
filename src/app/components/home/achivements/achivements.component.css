@@ -1,46 +1,48 @@
-.container h1{
-    color: #ffbc13;
-    padding-bottom: 20px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-transform: uppercase;
-}
-.container h1::after{
-    content: '';
-    display: block;
+.achievement-section {
+    background-color: #1f2340;
     position: relative;
-    width: 17%;
-    border: 2px solid #0A1931;
-    margin-top: 8px;
+    width: 100%;
 }
 
-.heading, .subheading{
-    color: #0A1931;
-    font-size: 20px;
-}
-.count{
-    color: #ffbc13;
-    font-size: 40px;
-    font-weight: bolder;
-}
-.text{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-align: justify;
+.card-box {
+    color: white;
+    padding: 3rem;
+    width: 180px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 10px;
 }
 
-@media (max-width: 767px) {
-    .container h1::after{
-        width: 75%;
+.card-box .icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.bg-purple {
+    background-color: #7b51d3;
+}
+
+.btn-pink {
+    background-color: #d03fd3;
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+@media  (max-width: 768px){
+    .card-box {
+        padding: 2rem;
+        width: 150px;
     }
-}
 
-@media (min-width: 768px) and (max-width: 991px) {
-    .container h1::after{
-        width: 33%;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1024px) {
-    .container h1::after{
-        width: 25%;
+    .card-box-flex {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }

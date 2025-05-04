@@ -1,5 +1,5 @@
 <div class="login-container form-signin w-100 m-auto">
-    <form [formGroup]="login" #f="ngForm" class="login-form">
+    <form [formGroup]="login" #f="ngForm" (ngSubmit)="onSubmit()" class="login-form">
       <h1>Welcome Back</h1>
       <p>Please login to your account</p>
       <div class="input-group">
@@ -9,11 +9,11 @@
         id="username" 
         name="username" 
         placeholder="Username">
-        @if (all.username.touched && all.username.invalid) {
+        @if (all['username'].touched && all['username'].invalid) {
           <div class="error-message">
-            @if (all.username.hasError('required')) { <small>Username is Required</small> }
-            @if (all.username.hasError('minlength')) { <small>Name should be minimum 3 Characters</small> }
-            @if (all.username.hasError('maxlength')) { <small>Name should be maximum 20 Characters</small> }
+            @if (all['username'].hasError('required')) { <small>Username is Required</small> }
+            @if (all['username'].hasError('minlength')) { <small>Name should be minimum 3 Characters</small> }
+            @if (all['username'].hasError('maxlength')) { <small>Name should be maximum 20 Characters</small> }
           </div>
         }
       </div>
@@ -25,10 +25,10 @@
         id="password" 
         name="password" 
         placeholder="Password">
-        @if (all.password.touched && all.password.invalid) {
+        @if (all['password'].touched && all['password'].invalid) {
           <div class="error-message">
-            @if (all.password.hasError('required')) { <small>Password is Required</small> }
-            @if (all.password.hasError('pattern')) { <small>Password should be Atleast one uppercase, one lowercase, one number,
+            @if (all['password'].hasError('required')) { <small>Password is Required</small> }
+            @if (all['password'].hasError('pattern')) { <small>Password should be Atleast one uppercase, one lowercase, one number,
               one special-character
             </small> }
           </div>

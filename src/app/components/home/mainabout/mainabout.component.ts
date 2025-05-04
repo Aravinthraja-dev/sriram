@@ -1,21 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgStyle } from '@angular/common';
+import { ImageService } from 'src/app/shared/services/image.service';
+import { ImageForm } from 'src/app/shared/model/image-form';
 
 @Component({
-    selector: 'app-mainabout',
-    templateUrl: './mainabout.component.html',
-    styleUrls: ['./mainabout.component.css'],
-    standalone: true,
-    imports: [NgStyle]
+  selector: 'app-mainabout',
+  templateUrl: './mainabout.component.html',
+  styleUrls: ['./mainabout.component.css'],
+  standalone: true,
+  imports: [NgStyle]
 })
-export class MainaboutComponent {
-  about = "assets/about.jpg"
+export class MainaboutComponent implements OnInit {
+  // about = "assets/about.jpg"
   bgabout = "assets/background.jpg"
 
-  constructor(private router: Router) { }
+  about: ImageForm = {
+    imageTitle: '',
+    image: '',
+    PageCategory: '',
+    PageSubCategory: ''
+  };
 
-  gotoAbout(){
+  constructor(
+    private router: Router,
+    private imageService: ImageService
+  ) { }
+
+  ngOnInit(): void {
+    this.imageService.getAll().subscribe(data => {
+      this.about = data.find(
+        item => item.PageCategory === 'home' && item.PageSubCategory === 'about'
+      ) as ImageForm;
+    })
+  }
+
+  gotoAbout() {
     this.router.navigate(["/about"])
   }
 }

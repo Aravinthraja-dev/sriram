@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { ImageForm } from 'src/app/shared/model/image-form';
 import { Project } from 'src/app/shared/model/project';
+import { ImageService } from 'src/app/shared/services/image.service';
 import { ProjectService } from 'src/app/shared/services/project.service';
 
 @Component({
@@ -13,47 +14,62 @@ import { ProjectService } from 'src/app/shared/services/project.service';
   imports: [ReactiveFormsModule]
 })
 export class ProjectsComponent implements OnInit {
-  projectBanner = "assets/project.jpg";
   project: Project[] = [];
   filteredProject: Project[] = [];
   projectStatus: any;
   isSorted: boolean = false;
   searchControl = new FormControl();
 
-  constructor(private projectService: ProjectService) { }
+  isLoading = false;
+  lastKey?: string;
+  limit = 6;
+  hasMore = true;
+
+  projectBanner: ImageForm = {
+    imageTitle: '',
+    image: '',
+    PageCategory: '',
+    PageSubCategory: ''
+  };
+
+  constructor(
+    private projectService: ProjectService,
+    private imageService: ImageService
+  ) { }
 
   ngOnInit(): void {
-    this.projectService.getAll().subscribe(projects => {
+    /* this.projectService.getAll().subscribe(projects => {
       this.project = projects
       this.filteredProject = [...this.project]
-    })
+    }) */
 
+    this.loadInitialProjects();
+      
     this.searchControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged()
     ).subscribe(value => {
       this.filteredProject = this.project.filter(project => project.projectTitle.toLowerCase().includes(value.toLowerCase()));
     })
+
+    this.imageService.getAll().subscribe(data => {
+      this.projectBanner = data.find(
+        item => item.PageCategory === 'project' && item.PageSubCategory === 'projectBanner'
+      ) as ImageForm;
+    })
   }
 
-
-
   sortProject() {
-    if (!this.project.length) {
-      this.project = [...this.project];
-    }
-
+    this.isSorted = !this.isSorted;
+    
     if (this.isSorted) {
-      this.filteredProject = [...this.project];
-
-    } else {
-      this.filteredProject = [...this.project].sort((a: any, b: any) =>
+      this.filteredProject = [...this.filteredProject].sort((a, b) =>
         a.projectTitle.localeCompare(b.projectTitle)
       );
+    } else {
+      this.filteredProject = [...this.project];
     }
-
-    this.isSorted = !this.isSorted;
- }
+  }
 
   onSelectChange(event: Event) {
     const selectedElement = event.target as HTMLSelectElement;
@@ -72,6 +88,59 @@ export class ProjectsComponent implements OnInit {
       case 'completed':
         this.filteredProject = this.project.filter(project => project.projectStatus === selectedValue)
         break;
+    }
+  }
+
+  loadInitialProjects() {
+    this.isLoading = true;
+    this.projectService.getInitialProjects(this.limit)
+      .subscribe({
+        next: (projects: any) => {
+          if (projects.length > 0) {
+            this.project = projects;
+            this.filteredProject = [...this.project];
+            this.lastKey = projects[projects.length - 1].key;
+          }
+          this.isLoading = false;
+          this.hasMore = projects.length === this.limit;
+        },
+        error: (err) => {
+          console.error('Error loading projects:', err);
+          this.isLoading = false;
+        }
+      });
+  }
+
+  loadMoreProjects() {
+    if (this.isLoading || !this.hasMore || !this.lastKey) return;
+
+    this.isLoading = true;
+    this.projectService.getNextProjects(this.lastKey, this.limit)
+      .subscribe({
+        next: (newProjects: any) => {
+          if (newProjects.length > 0) {
+            this.project = [...this.project, ...newProjects];
+            this.filteredProject = [...this.project];
+            this.lastKey = newProjects[newProjects.length - 1].key;
+          }
+          this.isLoading = false;
+          this.hasMore = newProjects.length === this.limit;
+        },
+        error: (err) => {
+          console.error('Error loading more projects:', err);
+          this.isLoading = false;
+        }
+      });
+  }
+
+  @HostListener('window:scroll')
+  onScroll() {
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const offsetHeight = document.body.offsetHeight;
+
+    // Load more when 200px from bottom
+    if (scrollPosition > offsetHeight - 200 && !this.isLoading) {
+      this.loadMoreProjects();
     }
   }
 }

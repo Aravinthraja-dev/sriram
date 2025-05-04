@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
     selector: 'app-file-input',
@@ -26,7 +26,9 @@ export class FileInputComponent {
     @Input() placeholder = 'No file chosen';
     @Input() displayFileName: string | null = null;
     @Input() required = false;
-    @Input() maxSize?: number; // in bytes
+    @Input() maxSize?: number; 
+    @Output() fileSelected = new EventEmitter<Event>();
+
   
     handleFileChange(event: Event) {
       const input = event.target as HTMLInputElement;
@@ -35,5 +37,6 @@ export class FileInputComponent {
       } else {
         this.displayFileName = '';
       }
+      this.fileSelected.emit(event)
     }
 }

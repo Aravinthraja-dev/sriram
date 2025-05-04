@@ -1,20 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ImageForm } from 'src/app/shared/model/image-form';
+import { ImageService } from 'src/app/shared/services/image.service';
 
 @Component({
-    selector: 'app-service',
-    templateUrl: './service.component.html',
-    styleUrls: ['./service.component.css'],
-    standalone: true,
-    imports: []
+  selector: 'app-service',
+  templateUrl: './service.component.html',
+  styleUrls: ['./service.component.css'],
+  standalone: true,
+  imports: []
 })
-export class ServiceComponent {
-  serviceBanner = "assets/service.jpg";
+export class ServiceComponent implements OnInit{
   construction = "assets/construction.jpg";
   highway = "assets/highwaySer.jpg";
   education = "assets/education.jpg";
   thar = "assets/thar.jpg";
   concrete = "assets/concrete.jpg";
   iocl = "assets/iocl.jpg"
+
+  serviceBanner: ImageForm = {
+    imageTitle: '',
+    image: '',
+    PageCategory: '',
+    PageSubCategory: ''
+  };
 
   public isCollapsed = true;
 
@@ -55,7 +63,17 @@ export class ServiceComponent {
 
   selectedCard: any = null;
 
-  showDetails(card: any, event:Event) {
+  constructor(private imageService: ImageService) { }
+
+  ngOnInit(): void {
+    this.imageService.getAll().subscribe(data => {
+      this.serviceBanner = data.find(
+        item => item.PageCategory === 'service' && item.PageSubCategory === 'serviceBanner'
+      ) as ImageForm;
+    })
+  }
+
+  showDetails(card: any, event: Event) {
     event.preventDefault();
     this.selectedCard = this.selectedCard === card ? null : card;
   }

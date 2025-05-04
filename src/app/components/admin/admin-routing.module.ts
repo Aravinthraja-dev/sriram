@@ -7,6 +7,7 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminComponent } from './admin.component';
 import { AdminMessageComponent } from './admin-message/admin-message.component';
+import { ImageGallaryComponent } from './image-gallary/image-gallary.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: 'admin-message',
         component: AdminMessageComponent,
+      },
+      {
+        path: 'image-gallary',
+        component: ImageGallaryComponent,
       },
       { 
         path: 'dashboard/new', 

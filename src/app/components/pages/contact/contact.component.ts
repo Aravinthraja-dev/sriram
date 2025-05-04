@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContactForm } from 'src/app/shared/model/contact-form';
+import { ImageForm } from 'src/app/shared/model/image-form';
 import { ContactServiceService } from 'src/app/shared/services/contact-service.service';
+import { ImageService } from 'src/app/shared/services/image.service';
 declare const L: any;
 
 @Component({
@@ -13,7 +15,6 @@ declare const L: any;
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
-  bannerurl = "assets/AboutBan.jpg";
   office = "assets/office.png";
   phone = "assets/phone.png";
   email = "assets/email.png";
@@ -21,7 +22,18 @@ export class ContactComponent implements OnInit {
   latitude = '12.202011662906592'
   longitude = '78.32207100633755'
 
-  constructor(private contactApi: ContactServiceService, private route: Router) { }
+  bannerurl: ImageForm = {
+    imageTitle: '',
+    image: '',
+    PageCategory: '',
+    PageSubCategory: ''
+  }
+
+  constructor(
+    private contactApi: ContactServiceService,
+    private route: Router,
+    private imageService: ImageService
+  ) { }
 
   ngOnInit(): void {
     let map = L.map('map').setView([Number(this.latitude), Number(this.longitude)], 13);
@@ -34,6 +46,12 @@ export class ContactComponent implements OnInit {
     let marker = L.marker([Number(this.latitude), Number(this.longitude)]).addTo(map);
 
     marker.bindPopup('<b>Sri Ram Contruction</b>').openPopup();
+
+    this.imageService.getAll().subscribe(data => {
+      this.bannerurl = data.find(
+        item => item.PageCategory === 'contact' && item.PageSubCategory === 'contactBanner'
+      ) as ImageForm;
+    })
   }
   watchPosition() {
     let desLat = 0;

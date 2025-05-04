@@ -1,7 +1,7 @@
 <main class="main">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img [src]="projectBanner" alt="" class="responsive-banner">
+      <img [src]="projectBanner ? projectBanner.image : 'assets/banner_preview.png'" [alt]="projectBanner ? projectBanner.imageTitle : null" class="responsive-banner">
       <div class="container">
         <div class="carousel-caption text-start">
           <h1 class="carouselTitle">Project</h1>

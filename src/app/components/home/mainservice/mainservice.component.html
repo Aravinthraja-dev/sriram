@@ -2,7 +2,7 @@
     <h1 class="heading">Main Services</h1>
     <div class="row">
         <div class="col-lg-6">
-            <img class="bd-placeholder-img img-fluid" width="250" height="250" [src]="buliding" alt="">
+            <img class="bd-placeholder-img img-fluid" width="250" height="250" [src]="buliding ? buliding.image : 'assets/preview.jpg'" [alt]="buliding ? buliding.imageTitle : null">
             <h3 class="fw-normal">Construction</h3>
             <p>At Sri Ram Construction, we take pride in turning your construction dreams into reality. With years of experience and 
                 a commitment to excellence, we are your trusted partner for all your construction needs.
@@ -10,7 +10,7 @@
             <button class="button btn-2" (click)="gotoService()"><span>View details &raquo;</span></button>
         </div>
         <div class="col-lg-6">
-            <img class="bd-placeholder-img img-fluid" width="250" height="250" [src]="highway" alt="">
+            <img class="bd-placeholder-img img-fluid" width="250" height="250" [src]="highway ? highway.image : 'assets/preview.jpg'" [alt]="highway ? highway.imageTitle : null">
             <h3 class="fw-normal">National Highways & NHAI</h3>
             <p>At Sri Ram Construction, we are dedicated to the development and enhancement of our nation's transportation infrastruction. 
                 As a leading player in the construction of national highways, we are committed to creating safe, efficient, and well-maintained 

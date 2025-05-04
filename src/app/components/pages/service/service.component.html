@@ -1,7 +1,7 @@
 <div class="main">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img [src]="serviceBanner" alt="" class="responsive-banner">
+      <img [src]="serviceBanner ? serviceBanner.image : 'assets/banner_preview.png'" [alt]="serviceBanner ? serviceBanner.imageTitle : null" class="responsive-banner">
       <div class="container">
         <div class="carousel-caption text-start">
           <h1 class="carouselTitle">Services</h1>

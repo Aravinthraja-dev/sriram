@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, catchError, map, of, take } from 'rxjs';
 import { Status } from '../model/status';
 
 @Injectable({
@@ -25,5 +25,13 @@ export class StatusService {
         return of([] as Status[])
       })
     )
+  }
+
+  getPages(): Observable<any[]> {
+    return this.db.list('/pages').snapshotChanges()
+  }
+
+  getSubOptions(pageName: string): Observable<any> {
+    return this.db.object(`/pages/${pageName}/subOptions`).valueChanges().pipe(take(1),map(data => data || {}))
   }
 }

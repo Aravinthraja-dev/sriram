@@ -1,37 +1,72 @@
-<div class="container-fluid" [ngStyle]="{backgroundImage:'url(' + bgabout + ')'}">
-<div class="container px-4 py-5">
-    <h1 class="pb-2">Our Achivements</h1>
+<!-- <div class="container-fluid"  #achievementsSection >
+  <div class="container px-4 py-5">
+      <h1 class="pb-2">Our Achivements</h1>
 
-    <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
-      <div class="col d-flex flex-column align-items-start gap-2">
-        <h2 class="heading">Building Excellence, Delivering Results</h2>
-        <p class="text-body-primary text">At Sriram Construction, we're passionate about exceeding expectations. We consistently deliver high-quality construction projects on time and within budget, while prioritizing safety and innovation. Our commitment to excellence is reflected in our successful track record and satisfied clients.  Let us turn your vision into a reality.</p>
-      </div>
+      <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
+        <div class="col d-flex flex-column align-items-start gap-2">
+          <h2 class="heading">Building Excellence, Delivering Results</h2>
+          <p class="text-body-primary text">At Sriram Construction, we're passionate about exceeding expectations. We consistently deliver high-quality construction projects on time and within budget, while prioritizing safety and innovation. Our commitment to excellence is reflected in our successful track record and satisfied clients.  Let us turn your vision into a reality.</p>
+        </div>
 
-      <div class="col">
-        <div class="row row-cols-1 row-cols-sm-2 g-4">
-          <div class="col d-flex flex-column gap-2">
-            <p class="d-inline-flex align-items-center justify-content-start count">
-              {{ projectComplete }}+
-            </p>
-            <h2 class="subheading">Project Complete</h2>
-          </div>
+        <div class="col">
+          <div class="row row-cols-1 row-cols-sm-2 g-4">
+            <div class="col d-flex flex-column gap-2">
+              <p class="d-inline-flex align-items-center justify-content-start count">
+                {{ projectsComplete }}+
+              </p>
+              <h2 class="subheading">Project Complete</h2>
+            </div>
 
-          <div class="col d-flex flex-column gap-2">
-            <p class="d-inline-flex align-items-center justify-content-start count">
-              {{ client }}+
-            </p>
-            <h2 class="subheading">Satisfied Client</h2>
-          </div>
+            <div class="col d-flex flex-column gap-2">
+              <p class="d-inline-flex align-items-center justify-content-start count">
+                {{ satisfiedClients }}+
+              </p>
+              <h2 class="subheading">Satisfied Client</h2>
+            </div>
 
-          <div class="col d-flex flex-column gap-2">
-            <p class="d-inline-flex align-items-center justify-content-start count">
-              {{ workerEmployee }}+
-            </p>
-            <h2 class="subheading">Worker Employed</h2>
+            <div class="col d-flex flex-column gap-2">
+              <p class="d-inline-flex align-items-center justify-content-start count">
+                {{ workersEmployed }}+
+              </p>
+              <h2 class="subheading">Worker Employed</h2>
+            </div>
           </div>
         </div>
       </div>
+  </div>
+</div>
+
+ -->
+
+<section class="achievement-section py-5 bg-dark text-white" #achievementsSection>
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
+      <div class="col-md-6 position-relative d-flex flex-wrap justify-content-center gap-4">
+        <div class="row row-cols-1 row-cols-sm-2 g-4 card-box-flex">
+          <div class="card-box bg-success">
+            <h3>{{ projectsComplete }}+</h3>
+            <p>Project Complete</p>
+          </div>
+          <div class="card-box bg-primary">
+            <h3>{{ satisfiedClients }}+</h3>
+            <p>Satisfied Client</p>
+          </div>
+          <div class="card-box bg-purple">
+            <h3>{{ workersEmployed }}+</h3>
+            <p>Worker Employed</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <h2 class="display-5 fw-bold">Our achivment & success</h2>
+        <p class="text-light opacity-75">
+          At Sriram Construction, we're passionate about exceeding expectations. We consistently deliver high-quality
+          construction projects on time and within budget, while prioritizing safety and innovation. Our commitment to
+          excellence is reflected in our successful track record and satisfied clients. Let us turn your vision into a
+          reality.
+        </p>
+      </div>
     </div>
-</div>
-</div>
+  </div>
+</section>

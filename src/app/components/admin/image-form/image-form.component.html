@@ -1,0 +1,116 @@
+<div class="modal-header">
+  <h2 class="modal-title">{{ isEditMode? 'Edit Image' : 'New Image' }} </h2>
+  <button type="button" class="btn-close" (click)="closeModel()"></button>
+</div>
+<div class="container">
+  <div class="bg-body-tertiary rounded">
+    <div class="row g-4 align-items-md-center">
+      <div class="col-md-6 form-detail">
+        <!---Project Form--->
+        @if (image) {
+          <form #f="ngForm" (ngSubmit)="save(f.value)" class="row g-3 align-items-center">
+            <!---Project Title--->
+            <div class="row">
+              <div class="col">
+                <label for="projectTitle" class="col-form-label">Image Title</label>
+                <input id="imageTitle" type="text" class="form-control" aria-describedby="passwordHelpInline" required
+                  minlength="3" maxlength="50" name="imageTitle" [(ngModel)]="image.imageTitle" #imageTitle="ngModel">
+                @if (imageTitle.touched && imageTitle.invalid) {
+                <div class="error-message">
+                  @if (imageTitle.errors?.['required']) {
+                  <div>
+                    Title is required.
+                  </div>
+                  }
+                  @if (imageTitle.errors?.['minlength']) {
+                  <div>
+                    Minimum length should be 3
+                  </div>
+                  }
+                  @if (imageTitle.errors?.['maxlength']) {
+                  <div>
+                    Maximum length should be 3
+                  </div>
+                  }
+                </div>
+                }
+              </div>
+            </div>
+    
+            <!-- Image Category Dropdown -->
+            <div class="row">
+              <div class="col-md-6">
+                <label for="PageCategory" class="form-label">Pages</label>
+                <select 
+                  id="PageCategory" 
+                  class="form-select"  
+                  name="PageCategory" 
+                  required 
+                  [(ngModel)]="image.PageCategory" 
+                  #PageCategory="ngModel"
+                  (change)="onPageSelection($event)"
+                  >
+                  <option value="" disabled selected>Choose...</option>
+                  @for (page of pageList; track $index) {
+                    <option [value]="page">{{ page | titlecase }}</option>
+                  }
+                </select>
+              </div>
+      
+      
+              @if(selectedPage || image.PageCategory) {
+                <div class="col-md-6">
+                  <label for="PageSubCategory" class="form-label">Blocks</label>
+                  <select 
+                    id="PageSubCategory" 
+                    class="form-select" 
+                    name="PageSubCategory" 
+                    required 
+                    [(ngModel)]="image.PageSubCategory" 
+                    #PageSubCategory="ngModel"
+                    >
+                    @for (item of (subOptions | keyvalue); track $index) {
+                      <option [value]="item.key">{{ item.value }}</option>
+                    }
+                  </select>
+                </div>
+              }
+            </div>
+    
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <label for="image" class="col-form-label">Upload Image</label>
+              </div>
+              <div class="col-12 col-md-8">
+                <app-file-input accept="image/*" [required]="true" [displayFileName]="selectedFileName"
+                  (fileSelected)="onFileSelected($event)">
+                </app-file-input>
+              </div>
+            </div>
+    
+            <div class="d-flex justify-content-between mt-5">
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Great,
+                thanks!</button>
+              @if (isEditMode) {
+              <button type="button" class="btn btn-danger" (click)="openDeleteModal()">Delete</button>
+              }
+            </div>
+          </form>
+        }
+      </div>
+      <!---Side Card--->
+      <div class="col-md-6 image-preview">
+        <div class="card shadow-sm">
+          <img [src]="previewImage || currentImageUrl ? previewImage || currentImageUrl : 'assets/preview.jpg'" class="bd-placeholder-img card-img-top" role="img">
+          <div class="card-body">
+            <p class="card-text card-title">{{ image.imageTitle }}</p>
+            <div class="card-footer">
+              <span class="card-text">{{ image.PageCategory | titlecase }}</span>
+              <span class="text-body-secondary card-status">{{ image.PageSubCategory }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

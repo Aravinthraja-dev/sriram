@@ -4,9 +4,7 @@ import { Project } from 'src/app/shared/model/project';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { catchError, of, Subscription, take, tap } from 'rxjs';
-import { ContactServiceService } from 'src/app/shared/services/contact-service.service';
-import { ContactForm } from 'src/app/shared/model/contact-form';
+import { catchError, of, Subscription, tap } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { UpperCasePipe } from '@angular/common';
 
