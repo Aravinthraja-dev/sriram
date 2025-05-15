@@ -11,6 +11,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { Router } from '@angular/router';
 import { StatusService } from 'src/app/shared/services/status.service';
 import { KeyValuePipe, TitleCasePipe } from '@angular/common';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 
 @Component({
   selector: 'app-image-form',
@@ -39,7 +40,8 @@ export class ImageFormComponent implements OnInit, OnDestroy {
     private imageService: ImageService,
     private modelService: NgbModal,
     private router: Router,
-    private pageService: StatusService
+    private pageService: StatusService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit(): void {
@@ -71,11 +73,15 @@ export class ImageFormComponent implements OnInit, OnDestroy {
   }
 
   saveImage(image: any) {
+    this.loaderService.loadingOn();
     if (this.id) {
       this.imageService.update(this.id, image).then(() => {
         this.snackBar.open('Image Updated successfully', 'Close', { duration: 3000 });
       }).catch(() => {
         this.snackBar.open('Failed to Update Image', 'Close', { duration: 3000 });
+      }).finally(() => {
+        this.loaderService.loadingOff();
+        this.modelService.dismissAll();
       });
     }
     else {
@@ -83,9 +89,11 @@ export class ImageFormComponent implements OnInit, OnDestroy {
         this.snackBar.open('Image Added successfully', 'Close', { duration: 3000 });
       }).catch(() => {
         this.snackBar.open('Failed to Added Image', 'Close', { duration: 3000 });
+      }).finally(() => {
+        this.modelService.dismissAll();
+        this.loaderService.loadingOff();
       });
-    }
-    this.modelService.dismissAll();
+    } 
   }
 
   save(image: ImageForm) {

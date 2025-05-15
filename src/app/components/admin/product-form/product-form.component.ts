@@ -43,7 +43,6 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     private route: Router,
     private router: ActivatedRoute,
     private storage: AngularFireStorage,
-    private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private modalService: NgbModal
   ) {

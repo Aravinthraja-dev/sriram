@@ -1,17 +1,18 @@
 .container .heading{
     color: #ffbc13;
-    padding-bottom: 20px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /* padding-bottom: 20px; */
+    font-family: 'Segoe UI', sans-serif;
     text-transform: uppercase;
+    font-weight: 500;
 }
-.container .heading::after{
+/* .container .heading::after{
     content: '';
     display: block;
     position: relative;
     width: 8%;
     border: 2px solid #0A1931;
     margin-top: 8px;
-}
+} */
 .button {
     padding: 7px 14px;
     font-size: 16px;
@@ -51,7 +52,7 @@
     color: white;
   }
   
-  @media (max-width: 991px) {
+ /*  @media (max-width: 991px) {
     .container .heading::after{
       width: 15%;
     }
@@ -65,7 +66,7 @@
 
   @media (min-width: 992px) and (max-width: 1024px) {
     .container .heading::after { width: 11%; }
-  }
+  } */
 
 #custom-cards .card {
   background-repeat: no-repeat; 

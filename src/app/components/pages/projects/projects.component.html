@@ -47,6 +47,13 @@
         </ng-container>
         }
       </div>
+      @if (isLoading) {
+        <div class="text-center py-4">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      }
     </div>
   </div>
 </main>

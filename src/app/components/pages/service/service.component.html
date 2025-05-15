@@ -1,7 +1,8 @@
 <div class="main">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img [src]="serviceBanner ? serviceBanner.image : 'assets/banner_preview.png'" [alt]="serviceBanner ? serviceBanner.imageTitle : null" class="responsive-banner">
+      <img [src]="serviceBanner ? serviceBanner.image : 'assets/banner_preview.png'"
+        [alt]="serviceBanner ? serviceBanner.imageTitle : null" class="responsive-banner">
       <div class="container">
         <div class="carousel-caption text-start">
           <h1 class="carouselTitle">Services</h1>
@@ -15,32 +16,61 @@
     <div class="container text">
       <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
         @for (card of cards; track $index) {
-        <div class="col d-flex align-items-start">
-          <div class="ioverlay-card io-card-2">
-            <div class="card-content">
-              <span class="card-title">{{ card.title }}</span>
+        @if(windowWidth > 768) {
+        <!-- Desktop view -->
+        <div class="col d-flex justify-content-center">
+          <div class="card-container">
+            <div class="card-thumb" [ngStyle]="{ 'background-image': 'url(' + card.image + ')' }"></div>
+            <div class="card-infos">
+              <h2 class="card-title">{{ card.title }}</h2>
+              <h3 class="card-date">{{ card.subTitle }}</h3>
+              <p class="card-text">
+                {{ card.description }}
+              </p>
+              <h3 class="card-details">{{ card.cta }}</h3>
             </div>
-            <span class="card-link">
-              <a (click)="showDetails(card, $event)" title="Read Full">
-                <span>{{ selectedCard === card ? 'Hide' : 'View' }}</span>
-              </a>
-            </span>
-            <img [src]="card.image" alt="{{ card.title }}" />
           </div>
-          @if (selectedCard === card) {
+          <!-- <div class="ioverlay-card io-card-2">
+                <div class="card-content">
+                  <span class="card-title">{{ card.title }}</span>
+                </div>
+                <img [src]="card.image" alt="{{ card.title }}" />
+              </div>
           <div class="collapse-card">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">{{ card.title }}</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                <h3 class="card-subtitle mb-2 text-body-secondary">{{ card.subTitle }}</h3>
                 <p class="card-text">{{ card.description }}</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+                <a href="#" class="cta-button">{{ card.cta }}</a>
               </div>
             </div>
-          </div>
-          }
+          </div> -->
         </div>
+        } @else {
+        <!-- Mobile view -->
+        <div class="card">
+          <img [src]="card.image" [alt]="card.title" class="image">
+          <div class="content">
+            <a href="#">
+              <span class="title">
+                {{ card.title }}
+              </span>
+            </a>
+
+            <p class="desc">
+              {{ card.description }}
+            </p>
+
+            <a class="action" href="#">
+              Find out more
+              <span aria-hidden="true">
+                →
+              </span>
+            </a>
+          </div>
+        </div>
+        }
         }
       </div>
     </div>
