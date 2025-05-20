@@ -4,10 +4,14 @@
   margin: 68px auto 0 auto;
 }
 
-.carousel-inner .carousel-item .container .carouselTitle,
+.carousel-inner .carousel-item .container,
 .opacity-75 {
   color: rgb(237, 244, 244);
 }
+
+.carousel-caption .carouselTitle {
+  color: #ffbc13;
+} 
 
 .card-container {
   position: relative;

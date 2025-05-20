@@ -1,17 +1,33 @@
 <div class="login-container form-signin w-100 m-auto">
-    <form [formGroup]="login" #f="ngForm" (ngSubmit)="onSubmit()" class="login-form">
+    <form [formGroup]="register" #f="ngForm" (ngSubmit)="onSubmit()" class="login-form">
       <h1>Welcome Back</h1>
-      <p>Please login to your account</p>
+      <p>Please register to your account</p>
+      <div class="input-group">
+        <input 
+        formControlName="email"
+        type="text" 
+        id="email" 
+        name="email" 
+        placeholder="Email">
+        @if (all['email'].touched && all['email'].invalid) {
+          <div class="error-message">
+            @if (all['email'].hasError('required')) { <small>Username is Required</small> }
+          </div>
+        }
+      </div>
+
       <div class="input-group">
         <input 
         formControlName="username"
-        type="email" 
+        type="text" 
         id="username" 
         name="username" 
         placeholder="Username">
         @if (all['username'].touched && all['username'].invalid) {
           <div class="error-message">
             @if (all['username'].hasError('required')) { <small>Username is Required</small> }
+            @if (all['username'].hasError('minlength')) { <small>Name should be minimum 3 Characters</small> }
+            @if (all['username'].hasError('maxlength')) { <small>Name should be maximum 20 Characters</small> }
           </div>
         }
       </div>
@@ -32,11 +48,10 @@
           </div>
         }
       </div>
-      <button type="submit">Login</button>
+      <button type="submit">Register</button>
       <div class="bottom-text">
-        <p>Don't have an account? <a routerLink="/register">Sign Up</a></p>
+        <p>Don't have an account? <a href="#">Sign Up</a></p>
         <p><a href="#">Forgot password?</a></p>
       </div>
-      <button (click)="loginWithGoogle()" class="btn btn-primary">Login with Google</button>
     </form>
 </div>

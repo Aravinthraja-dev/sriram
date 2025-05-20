@@ -3,22 +3,10 @@
   max-width: 100%;
   margin: 68px auto 0 auto;
 }
-.container .row .col .card {
-    width: 20rem;
-    border: 1px solid #eeeeee;
-    height: 180px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
-}
 
-.container .row .col .card .card-body .card-title {
-    color: #ffbc13;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-transform: uppercase;
-}
-
-.container .row .col .card .card-body h6 {
-    color: #3498db;
-}
+.carousel-caption .carouselTitle {
+  color: #ffbc13;
+} 
 
 ::selection {
     color: #ffffff;
@@ -91,58 +79,74 @@ button:hover {
     background-color: #ffffff;
 }
 
-.card .card-body {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-}
-
-.card .card-body .icon {
-    display: flex;
-    align-items: center;
-    width: 50px;
-    justify-content: center;
-    height: 50px;
-}
-
-.card .card-body .icon i {
-    font-size: 23px;
-    color: #ffbc13;
-}
-
-.container .contact-box {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-}
-
-.contacts {
-    padding-top: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-@media (max-width: 768px) {
-    .container .contact-box {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 576px) {
-    .container .contact-box {
-        grid-template-columns: 1fr;
-    }
-}
-
-
 .responsive-banner {
   width: 100%;
   height: auto;
   max-height: 400px;
 }
 
+.container.contacts {
+margin-top: 40px;
+  width: 100%;
+}
+
+.contact-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Desktop: 3 in a row */
+  gap: 20px;
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-box {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.icon {
+  font-size: 2rem;
+  color: #4e54c8;
+  margin-bottom: 15px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.card-text {
+  margin-bottom: 8px;
+  color: #666;
+  line-height: 1.5;
+}
+
 @media (max-width: 768px) {
   .responsive-banner {
     height: 200px;
+  }
+
+   .contact-details {
+    grid-template-columns: 1fr;
+    gap: clamp(10px, 1vw, 20px);
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .contact-details {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(12px, 1.5vw, 25px);
   }
 }

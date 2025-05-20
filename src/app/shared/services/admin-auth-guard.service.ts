@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { AuthService } from './auth.service';
-import { UserService } from './user.service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -10,18 +9,18 @@ import { Router } from '@angular/router';
 })
 export class AdminAuthGuardService {
 
-  constructor(private auth:AuthService, private userService: UserService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
-  
+
   canActivate(): Observable<boolean> {
     return this.auth.appUser$.pipe(
-      // map(appUser => (<any>appUser).isAdmin));  
+      take(1),
       map(appUser => {
-        if(appUser && appUser.isAdmin) return true;
+        if (appUser && appUser.isAdmin) return true;
 
         this.router.navigate(['/home']);
         return false;
-      }) 
+      })
     )
- }
+  }
 }

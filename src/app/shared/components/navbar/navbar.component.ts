@@ -12,7 +12,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [NgbCollapse, RouterLink, DatePipe],
+  imports: [NgbCollapse, DatePipe],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -29,6 +29,11 @@ export class NavbarComponent implements OnInit {
   showNotifications!: boolean;
   messages: any;
   unreadCount = 0;
+
+  private navigationTimeout: any = null;
+  SECRET_TAP_THRESHOLD = 5;
+  SECRET_TAP_WINDOW_MS = 1000;
+  NAVIGATION_DELAY_MS = 3000;
 
   constructor(
     public auth: AuthService,
@@ -48,7 +53,7 @@ export class NavbarComponent implements OnInit {
     this.contactService.unreadCount$.subscribe(count => {
       this.unreadCount = count;
     });
-    
+
     this.contactService.getMessages().subscribe({
       next: (messages) => {
         this.messages = messages;
@@ -74,18 +79,25 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  navigateToRoute(route: string) {
+  async navigateToRoute(route: string): Promise<void> {
     this.loader.loadingOn();
-    setTimeout(() => {
-      this.router.navigate([`${`/${route}`}`]).then((success) => {
-        if (success) {
-          this.loader.loadingOff();
-        } else {
-          this.loader.loadingOn();
-        }
-      })
-    }, 1500)
-    this.toggleNavbar();
+
+    if (this.navigationTimeout) {
+      clearTimeout(this.navigationTimeout);
+    }
+
+    try {
+      // Wait for both the delay and navigation
+      await Promise.all([
+        new Promise(resolve => setTimeout(resolve, this.NAVIGATION_DELAY_MS)),
+        this.router.navigate([route])
+      ]);
+    } catch (err) {
+      console.error('Navigation error:', err);
+    } finally {
+      this.loader.loadingOff();
+      this.toggleNavbar();
+    }
   }
 
   navigateToQuaryParmas(route: string, queryParams: any) {
@@ -107,21 +119,27 @@ export class NavbarComponent implements OnInit {
 
   handleSecretTap() {
     const now = Date.now();
-    if (now - this.lastTapTime < 1000) {
+    if (now - this.lastTapTime < this.SECRET_TAP_WINDOW_MS) {
       this.secretTapCount++;
     } else {
       this.secretTapCount = 1
     }
     this.lastTapTime = now;
 
-    if (this.secretTapCount === 5) {
-      this.router.navigate(['/login']);
+    if (this.secretTapCount >= this.SECRET_TAP_THRESHOLD) {
       this.secretTapCount = 0;
+      this.router.navigate(['/login']).then(() => {
+        if (this.appUser) {
+          this.auth.logout();
+        }
+      })
     }
+  }
 
-    if (this.appUser) {
-      this.auth.logout();
-    }
+  handleMouse(event: MouseEvent) {
+    this.handleSecretTap();
+    this.navigateToRoute('home')
+    event.stopPropagation()
   }
 
   viewMessage(message: any) {
@@ -139,6 +157,14 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  showNotificationsClick() {
+    this.showNotifications = !this.showNotifications
+    this.toggleNavbar();
+  }
+
   ngOnDestroy() {
+    if (this.navigationTimeout) {
+      clearTimeout(this.navigationTimeout);
+    }
   }
 }

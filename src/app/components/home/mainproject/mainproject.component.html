@@ -1,20 +1,23 @@
-<div class="container px-4 py-3" id="custom-cards">
+<div class="container px-4 py-3 project-section" id="custom-cards" scrollAnimate>
     <h1 class="pb-2 heading">Project</h1>
 
     <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
       <ng-container *ngFor="let p of projects">
         <div class="col">
           <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" [style.backgroundImage]="'url(' + p.imageUrl + ')'">
+            <div class="card-overlay"></div>
             <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-              <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-shadow-strong">{{ p.projectTitle }}</h3>
-              <ul class="d-flex list-unstyled mt-auto">
-                <li class="d-flex align-items-center me-3">
+              <div class="card-content">
+              <h3 class="display-6 lh-1 fw-bold mb-3">{{ p.projectTitle }}</h3>
+              <ul class="d-flex list-unstyled mt-auto gap-3">
+                <li class="d-flex align-items-center">
                   {{ p.projectInr }}
                 </li>
                 <li class="d-flex align-items-center">
                   <small>{{ p.projectStatus | uppercase}}</small>
                 </li>
               </ul>
+              </div>
             </div>
           </div>
         </div>

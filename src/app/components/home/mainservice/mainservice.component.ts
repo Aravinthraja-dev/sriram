@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ScrollAnimateDirective } from 'src/app/shared/directives/scrollAnimate';
 import { ImageForm } from 'src/app/shared/model/image-form';
 import { ImageService } from 'src/app/shared/services/image.service';
 
@@ -7,7 +8,8 @@ import { ImageService } from 'src/app/shared/services/image.service';
     selector: 'app-mainservice',
     templateUrl: './mainservice.component.html',
     styleUrls: ['./mainservice.component.css'],
-    standalone: true
+    imports: [ScrollAnimateDirective],
+    standalone: true,
 })
 export class MainserviceComponent implements OnInit{
   buliding: ImageForm = {

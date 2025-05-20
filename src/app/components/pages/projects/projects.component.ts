@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { ScrollAnimateDirective } from 'src/app/shared/directives/scrollAnimate';
 import { ImageForm } from 'src/app/shared/model/image-form';
 import { Project } from 'src/app/shared/model/project';
 import { ImageService } from 'src/app/shared/services/image.service';
@@ -11,7 +12,7 @@ import { ProjectService } from 'src/app/shared/services/project.service';
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule]
+  imports: [ReactiveFormsModule, ScrollAnimateDirective]
 })
 export class ProjectsComponent implements OnInit {
   project: Project[] = [];
@@ -37,12 +38,14 @@ export class ProjectsComponent implements OnInit {
     private imageService: ImageService
   ) { }
 
-  ngOnInit(): void {
-    /* this.projectService.getAll().subscribe(projects => {
-      this.project = projects
-      this.filteredProject = [...this.project]
-    }) */
+  windowWidth = window.innerWidth;
 
+  @HostListener('window:resize')
+  onResize() {
+    this.windowWidth = window.innerWidth;
+  }
+
+  ngOnInit(): void {
     this.loadInitialProjects();
       
     this.searchControl.valueChanges.pipe(
@@ -137,9 +140,9 @@ export class ProjectsComponent implements OnInit {
   onScroll() {
     const scrollPosition = window.innerHeight + window.scrollY;
     const offsetHeight = document.body.offsetHeight;
+    const threshold = this.windowWidth > 768 ? 300 : 900;
 
-    // Load more when 200px from bottom
-    if (scrollPosition > offsetHeight - 200 && !this.isLoading) {
+    if (scrollPosition > offsetHeight - threshold && !this.isLoading) {
       this.loadMoreProjects();
     }
   }

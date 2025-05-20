@@ -19,11 +19,6 @@
     background-color: transparent;
 }
 
-/* .sliderTitle {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-} */
-
 @media (max-width: 768px) {
     .carousel-image {
         height: 200px;

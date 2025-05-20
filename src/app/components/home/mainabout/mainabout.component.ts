@@ -3,16 +3,16 @@ import { Router } from '@angular/router';
 import { NgStyle } from '@angular/common';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { ImageForm } from 'src/app/shared/model/image-form';
+import { ScrollAnimateDirective } from 'src/app/shared/directives/scrollAnimate';
 
 @Component({
   selector: 'app-mainabout',
   templateUrl: './mainabout.component.html',
   styleUrls: ['./mainabout.component.css'],
   standalone: true,
-  imports: [NgStyle]
+  imports: [NgStyle, ScrollAnimateDirective]
 })
 export class MainaboutComponent implements OnInit {
-  // about = "assets/about.jpg"
   bgabout = "assets/background.jpg"
 
   about: ImageForm = {

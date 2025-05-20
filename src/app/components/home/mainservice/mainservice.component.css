@@ -1,19 +1,10 @@
-
 .container .heading{
     color: #ffbc13;
-    /* padding-bottom: 20px; */
     font-family: 'Segoe UI', sans-serif;
     text-transform: uppercase;
     font-weight: 500;
 }
-/* .container .heading::after{
-    content: '';
-    display: block;
-    position: relative;
-    width: 14%;
-    border: 2px solid #0A1931;
-    margin-top: 8px;
-} */
+
 .container .row .col-lg-6 h3 a{
     text-decoration: none;
 }
@@ -71,23 +62,77 @@
     margin-left: auto;
     margin-right: auto;
   }
-  /* .container .heading::after {
-    width: 50%;
-  } */
 
   .container .row .col-lg-6 {
     margin-bottom: 20px;
   }
 }
 
-/* @media (min-width: 768px) and (max-width: 991px) {
-  .container .heading::after {
-    width: 27%;
+.mainservice-section.visible .col-lg-6 {
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+.mainservice-section.visible img {
+  animation: fadeInUp 0.6s ease-out 0.5s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (min-width: 992px) and (max-width: 1024px){
-  .container .heading::after {
-    width: 20%;
-  }
-} */
+.mainservice-section {
+  background-color: #f8f9fa;
+}
+
+.mainservice-section .row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.mainservice-section .col-lg-6 {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  padding: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1 1 calc(50% - 10px); 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.mainservice-section .col-lg-6:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.mainservice-section img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.mainservice-section h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.mainservice-section p {
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+

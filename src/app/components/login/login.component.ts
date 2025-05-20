@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -15,41 +16,41 @@ export class LoginComponent {
 
   constructor(
     private auth: AuthService,
-    private fb: FormBuilder
-  ) { 
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.login = this.fb.group({
-      username: new FormControl('',[
+      username: new FormControl('', [
         Validators.required,
         Validators.maxLength(15),
         Validators.minLength(3)
       ]),
-      password: new FormControl('',[
+      password: new FormControl('', [
         Validators.required,
         Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$")
       ])
     })
   }
-  
-  get all(){
+
+  get all() {
     return this.login.controls;
   }
 
-  loginWithGoogle(){
-    this.auth.signInWithGoogle().then((res:any) => {
-      console.log('Lazy Loading activated')
-    }).catch((error:any)=>{
+  loginWithGoogle() {
+    this.auth.signInWithGoogle().then((res: any) => {
+
+    }).catch((error: any) => {
       console.error(error);
     })
   }
 
   async onSubmit() {
-    if (this.login.invalid) return;
-
     try {
-      const { email, password } = this.login.value;
-      await this.auth.login(email, password);
-    } catch (error: any) {
-      this.errorMessage = this.getErrorMessage(error.code);
+      const rawForm = this.login.getRawValue();
+      await this.auth.login(rawForm.username, rawForm.password);
+      console.log('Login successful & navigation completed.');
+    } catch (error) {
+      console.error('Login failed:', error);
     }
   }
 

@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NgStyle } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { ScrollAnimateDirective } from 'src/app/shared/directives/scrollAnimate';
 
 @Component({
     selector: 'app-achivements',
     templateUrl: './achivements.component.html',
     styleUrl: './achivements.component.css',
     standalone: true,
-    imports: []
+    imports: [ScrollAnimateDirective]
 })
 export class AchivementsComponent implements AfterViewInit{
   @ViewChild('achievementsSection') achievementsSection!: ElementRef;

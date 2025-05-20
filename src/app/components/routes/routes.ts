@@ -8,6 +8,7 @@ import { ContactComponent } from "../pages/contact/contact.component";
 import { LoginComponent } from "../login/login.component";
 import { AuthGuardService } from "src/app/shared/services/auth-guard.service";
 import { AdminAuthGuardService } from "src/app/shared/services/admin-auth-guard.service";
+import { RegisterComponent } from "../register/register.component";
 
 export const content: Routes = [
     {
@@ -37,6 +38,10 @@ export const content: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
     },
     {
         path: 'admin',

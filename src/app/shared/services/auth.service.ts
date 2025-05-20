@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider, updateProfile, User } from 'firebase/auth';
 import { Observable, of, switchMap } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,11 +18,12 @@ export class AuthService {
     'aravinthraja63@gmail.com',
   ]
 
+
   constructor(
     private afs: AngularFireAuth,
     private route: ActivatedRoute,
     private userService: UserService,
-    private router: Router,
+    private router: Router
   ) {
     this.user$ = this.afs.authState.pipe(
       switchMap(user => {
@@ -49,7 +50,6 @@ export class AuthService {
       const user = result.user;
       if (user && this.allowedEmails.includes(user.email!)) {
         localStorage.setItem('user', JSON.stringify(user));
-        console.log('Sign in successful, navigating to:', returnUrl);
         this.router.navigate([returnUrl]).catch(error => console.error('Navigation error:', error));
       }
       else {
@@ -83,20 +83,39 @@ export class AuthService {
 
   async login(email: string, password: string) {
     try {
-      const result = await this.afs.signInWithEmailAndPassword(email, password);
-      this.router.navigate(['/dashboard']); // Redirect after login
-      return result;
+      let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/admin';
+      localStorage.setItem('returnUrl', returnUrl);
+
+      const userCredential = await this.afs.signInWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+
+      if (!user) {
+        await this.afs.signOut();
+        alert('Access denied: Your account is not allowed to access this application.');
+        return null;
+      }
+
+      localStorage.setItem('user', JSON.stringify(user));
+      await this.router.navigate([returnUrl]);
+      return user;
+
     } catch (error) {
       console.error('Login error:', error);
-      throw error; // Re-throw to handle in component
+      throw error;
     }
   }
 
   // Register new user
-  async register(email: string, password: string) {
+  async register(email: string, password: string, username: string) {
     try {
-      const result = await this.afs.createUserWithEmailAndPassword(email, password);
-      return result;
+      const userCredential = await this.afs.createUserWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+
+      if (user) {
+        await updateProfile(user, { displayName: username })
+      }
+
+      return user;
     } catch (error) {
       console.error('Registration error:', error);
       throw error;
@@ -106,4 +125,5 @@ export class AuthService {
   getCurrentUser() {
     return this.afs.authState;
   }
+
 }

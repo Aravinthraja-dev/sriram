@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { NgFor, UpperCasePipe } from '@angular/common';
+import { ScrollAnimateDirective } from 'src/app/shared/directives/scrollAnimate';
 
 @Component({
     selector: 'app-mainproject',
     templateUrl: './mainproject.component.html',
     styleUrls: ['./mainproject.component.css'],
     standalone: true,
-    imports: [NgFor, UpperCasePipe]
+    imports: [NgFor, UpperCasePipe, ScrollAnimateDirective]
 })
 export class MainprojectComponent implements OnInit{
   projects: any[] = [];
