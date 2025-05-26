@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -16,8 +17,7 @@ export class LoginComponent {
 
   constructor(
     private auth: AuthService,
-    private fb: FormBuilder,
-    private router: Router
+    private fb: FormBuilder
   ) {
     this.login = this.fb.group({
       username: new FormControl('', [
@@ -37,11 +37,7 @@ export class LoginComponent {
   }
 
   loginWithGoogle() {
-    this.auth.signInWithGoogle().then((res: any) => {
-
-    }).catch((error: any) => {
-      console.error(error);
-    })
+    this.auth.signInWithGoogle().catch(error => console.error(error));
   }
 
   async onSubmit() {

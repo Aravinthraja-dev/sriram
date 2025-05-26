@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { GoogleAuthProvider, updateProfile, User } from 'firebase/auth';
+import { GoogleAuthProvider, updateProfile, User, UserCredential, Auth, signInWithPopup } from 'firebase/auth';
 import { Observable, of, switchMap } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppUser } from 'src/app/shared/model/app-user';
 import { UserService } from './user.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +19,12 @@ export class AuthService {
     'aravinthraja63@gmail.com',
   ]
 
-
   constructor(
     private afs: AngularFireAuth,
     private route: ActivatedRoute,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+
   ) {
     this.user$ = this.afs.authState.pipe(
       switchMap(user => {
@@ -42,23 +43,32 @@ export class AuthService {
     );
   }
 
-  signInWithGoogle() {
-    let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/admin';
+  async signInWithGoogle(): Promise<void> {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/admin';
     localStorage.setItem('returnUrl', returnUrl);
 
-    return this.afs.signInWithPopup(new GoogleAuthProvider()).then(result => {
-      const user = result.user;
-      if (user && this.allowedEmails.includes(user.email!)) {
-        localStorage.setItem('user', JSON.stringify(user));
-        this.router.navigate([returnUrl]).catch(error => console.error('Navigation error:', error));
-      }
-      else {
-        this.afs.signOut();
-        alert('Access denied: Your account is not allowed to access this application.');
-      }
-    }).catch(error => {
-      console.error('Sign-in error:', error);
-    });
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await this.afs.signInWithPopup(provider);
+      this.handleSignInResult(result);
+    } catch (error) {
+      console.error('Google Sign-In Error:', error);
+      throw error;
+    }
+  }
+
+  private handleSignInResult(result: any): void {
+    const user = result.user;
+    if (!user) return;
+
+    if (this.allowedEmails.includes(user.email)) {
+      localStorage.setItem('user', JSON.stringify(user));
+      const returnUrl = localStorage.getItem('returnUrl') || '/admin';
+      this.router.navigate([returnUrl]);
+    } else {
+      this.afs.signOut();
+      alert('Access denied: Unauthorized email.');
+    }
   }
 
   logout() {

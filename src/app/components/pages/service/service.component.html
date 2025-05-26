@@ -30,46 +30,20 @@
               <h3 class="card-details">{{ card.cta }}</h3>
             </div>
           </div>
-          <!-- <div class="ioverlay-card io-card-2">
-                <div class="card-content">
-                  <span class="card-title">{{ card.title }}</span>
-                </div>
-                <img [src]="card.image" alt="{{ card.title }}" />
-              </div>
-          <div class="collapse-card">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{{ card.title }}</h5>
-                <h3 class="card-subtitle mb-2 text-body-secondary">{{ card.subTitle }}</h3>
-                <p class="card-text">{{ card.description }}</p>
-                <a href="#" class="cta-button">{{ card.cta }}</a>
-              </div>
-            </div>
-          </div> -->
         </div>
         } @else {
         <!-- Mobile view -->
-        <div class="card">
-          <img [src]="card.image" [alt]="card.title" class="image">
-          <div class="content">
-            <a href="#">
-              <span class="title">
-                {{ card.title }}
-              </span>
-            </a>
-
-            <p class="desc">
-              {{ card.description }}
-            </p>
-
-            <a class="action" href="#">
-              Find out more
-              <span aria-hidden="true">
-                →
-              </span>
-            </a>
+        <article>
+          <div class="article-wrapper">
+            <figure>
+              <img [src]="card.image" [alt]="card.title" class="image">
+            </figure>
+            <div class="article-body">
+              <h2>{{ card.title }}</h2>
+              <p>{{ card.description }}</p>
+            </div>
           </div>
-        </div>
+        </article>
         }
         }
       </div>

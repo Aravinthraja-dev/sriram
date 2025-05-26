@@ -2,7 +2,7 @@
   <div class="container">
     <div class="logo">
       <img src="assets/SR--03.png" (click)="handleMouse($event)" />
-      <h1 class="navbar-brand">GROUPS</h1>
+      <h1 class="navbar-brand" (click)="handleSecretTap()">GROUPS</h1>
     </div>
     <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
       <span class="navbar-toggler-icon"></span>
@@ -43,31 +43,30 @@
         <!----Admin navbar--->
         @if (appUser?.isAdmin) {
         <ng-container>
-          <li class="nav-item dropdown" (mouseenter)="showNotifications = true" (mouseleave)="showNotifications = false">
+          <li class="nav-item dropdown" (mouseenter)="showNotifications = true" (mouseleave)="showNotifications = false"
+            [class.open]="showNotifications">
             <a class="nav-link d-flex align-items-center gap-2" (click)="showNotificationsClick()">
-              <i class="ri-notification-3-line"></i>@if (unreadCount  > 0) {<span class="badge badge-light notification-badge">{{
-                unreadCount  }}</span>}
+              <i class="ri-notification-3-line"></i>@if (unreadCount > 0) {<span
+                class="badge badge-light notification-badge">{{
+                unreadCount }}</span>}
               Notification
             </a>
             @if (showNotifications) {
             <div class="notification-dropdown">
               <div class="notification-header">
-                <h6>Notifications</h6>
-                @if (unreadCount  > 0) {
-                <button (click)="markAllAsRead()">Mark all as read</button>
+                <h4>Notifications</h4>
+                @if (unreadCount > 0) {
+                  <button (click)="markAllAsRead()">Mark all as read</button>
                 }
               </div>
               <div class="notification-list">
                 @if (unreadCount > 0) {
-                @for (message of messages; track $index) {  
+                @for (message of messages; track $index) {
                 <div class="notification-item" [class.unread]="!message.isRead" (click)="viewMessage(message)">
                   <div class="notification-content">
                     <strong>{{ message.username }}</strong>
                     <p>{{ message.email }}</p>
-                    <small>{{ message.timestamp | date:'shortTime' }}</small>
-                    @if (message.isNew) {
-                      <span class="new-badge">New</span>
-                    }
+                    <small>{{ message.timestamp | date:'short' }}</small>
                   </div>
                 </div>
                 }

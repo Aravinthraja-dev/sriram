@@ -56,7 +56,7 @@ export class NavbarComponent implements OnInit {
 
     this.contactService.getMessages().subscribe({
       next: (messages) => {
-        this.messages = messages;
+        this.messages = messages.filter(m => m.isNew);
       },
       error: (err) => console.error('Message fetch error:', err)
     });
@@ -158,8 +158,10 @@ export class NavbarComponent implements OnInit {
   }
 
   showNotificationsClick() {
-    this.showNotifications = !this.showNotifications
-    this.toggleNavbar();
+    if(this.isMobile) {
+      this.showNotifications = true
+      // this.toggleNavbar();
+    }
   }
 
   ngOnDestroy() {

@@ -45,24 +45,6 @@
   color: white;
 }
 
-/* #custom-cards .card {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-
-.card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-} */
-
 .project-section.visible .col {
   animation: fadeInUp 0.6s ease-out 0.3s both;
 }
@@ -87,53 +69,8 @@
   }
 }
 
-/* .card-content {
-  color: white;
-  pointer-events: none;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.card-content h3 {
-  color: #ffbc13;
-  font-size: xx-large;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-}
-
-.card-content ul {
-  margin: 0;
-  padding: 0; 
-  align-items: center; 
-}
-
-.card-content li {
-  white-space: nowrap; 
-}
-
-@media (hover: hover) {
- .card:hover .card-overlay {
-    opacity: 1;
-  }
-
-  .card:hover .card-content h3 {
-    color: white; 
-  }
-}
-
-@media (hover: none) {
-  .card-overlay {
-    opacity: 1;
-  }
-} */
-
-
-
-
 #custom-cards .card {
-  height: 380px; /* Increased height */
+  height: 380px !important; 
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -155,7 +92,7 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.3s ease;
   z-index: 1;
 }
@@ -199,13 +136,44 @@
     opacity: 1;
   }
 
+  #custom-cards .card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+
   .card:hover .card-content h3 {
     color: white;
+  }
+
+  .card-content li {
+    color: white;
+  }
+
+  .card-overlay {
+    opacity: 0; 
   }
 }
 
 @media (hover: none) {
   .card-overlay {
     opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-overlay{
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .card-content h3 {
+    color: #ffbc13;
+  }
+
+  #custom-cards .card{
+    height: 320px !important;
+  }
+
+  .card-content{
+    padding: 0.5rem;
   }
 }

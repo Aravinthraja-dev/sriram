@@ -26,9 +26,7 @@
         @if (all['password'].touched && all['password'].invalid) {
           <div class="error-message">
             @if (all['password'].hasError('required')) { <small>Password is Required</small> }
-            @if (all['password'].hasError('pattern')) { <small>Password should be Atleast one uppercase, one lowercase, one number,
-              one special-character
-            </small> }
+            @if (all['password'].hasError('pattern')) { <small>At least 1 uppercase, number & symbol</small> }
           </div>
         }
       </div>
