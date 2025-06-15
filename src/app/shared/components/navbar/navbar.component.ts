@@ -8,6 +8,7 @@ import { LoaderService } from '../../services/loader.service';
 import { ContactServiceService } from '../../services/contact-service.service';
 import { ContactForm } from '../../model/contact-form';
 import { DatePipe } from '@angular/common';
+import { finalize, switchMap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -79,25 +80,31 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  async navigateToRoute(route: string): Promise<void> {
+  navigateToRoute(route: string): void {
+    if (!route?.trim()) {
+      return;
+    }
+
     this.loader.loadingOn();
 
-    if (this.navigationTimeout) {
-      clearTimeout(this.navigationTimeout);
-    }
+    const path = route.startsWith('/') ? route : `/${route}`;
 
-    try {
-      // Wait for both the delay and navigation
-      await Promise.all([
-        new Promise(resolve => setTimeout(resolve, this.NAVIGATION_DELAY_MS)),
-        this.router.navigate([route])
-      ]);
-    } catch (err) {
-      console.error('Navigation error:', err);
-    } finally {
-      this.loader.loadingOff();
-      this.toggleNavbar();
-    }
+    timer(1500).pipe(
+      switchMap(() => this.router.navigate([path])),
+      finalize(() => {
+        this.loader.loadingOff();
+        this.toggleNavbar();
+      })
+    ).subscribe({
+      next: (success) => {
+        if (!success) {
+          console.warn(`Navigation to ${path} didn't complete`);
+        }
+      },
+      error: (err) => {
+        console.error('Navigation failed', err);
+      }
+    });
   }
 
   navigateToQuaryParmas(route: string, queryParams: any) {
@@ -122,24 +129,26 @@ export class NavbarComponent implements OnInit {
     if (now - this.lastTapTime < this.SECRET_TAP_WINDOW_MS) {
       this.secretTapCount++;
     } else {
-      this.secretTapCount = 1
+      this.secretTapCount = 1;
     }
     this.lastTapTime = now;
 
     if (this.secretTapCount >= this.SECRET_TAP_THRESHOLD) {
       this.secretTapCount = 0;
-      this.router.navigate(['/login']).then(() => {
-        if (this.appUser) {
-          this.auth.logout();
-        }
-      })
-    }
-  }
+      this.loader.loadingOn();
 
-  handleMouse(event: MouseEvent) {
-    this.handleSecretTap();
-    this.navigateToRoute('home')
-    event.stopPropagation()
+      if (this.appUser) {
+        this.auth.logout();
+      }
+
+      this.navigationTimeout = setTimeout(() => {
+        this.router.navigate(['/login'])
+          .finally(() => {
+            this.loader.loadingOff();
+            clearTimeout(this.navigationTimeout);
+          });
+      }, 1500);
+    }
   }
 
   viewMessage(message: any) {
@@ -158,9 +167,9 @@ export class NavbarComponent implements OnInit {
   }
 
   showNotificationsClick() {
-    if(this.isMobile) {
-      this.showNotifications = true
-      // this.toggleNavbar();
+    if (this.isMobile) {
+      this.showNotifications = !this.showNotifications
+      this.toggleNavbar();
     }
   }
 

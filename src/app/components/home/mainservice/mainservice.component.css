@@ -15,6 +15,7 @@
 .container .row .col-lg-6 p{
     text-align: justify;
     line-height: 25px;
+    color: #333 !important;
 }
 
 .button {
@@ -66,9 +67,14 @@
   .container .row .col-lg-6 {
     margin-bottom: 20px;
   }
+
+  .mainservice-section .row {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
-.mainservice-section.visible .col-lg-6 {
+C.mainservice-section.visible .col-lg-6 {
   animation: fadeInUp 0.6s ease-out 0.3s both;
 }
 
