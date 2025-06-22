@@ -27,7 +27,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
   status$!: Observable<Status[]>;
   project: any = {};
-  id;
+  id!: string | null;
   previewImage: string | ArrayBuffer | null = null;
   currentImageUrl: string | null = null;
   selectedFile: File | null = null;

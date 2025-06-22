@@ -107,19 +107,6 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  navigateToQuaryParmas(route: string, queryParams: any) {
-    this.loader.loadingOn();
-    setTimeout(() => {
-      this.router.navigate([`${`/${route}`}`], { queryParams }).then((success) => {
-        if (success) {
-          this.loader.loadingOff();
-        } else {
-          this.loader.loadingOn();
-        }
-      })
-    }, 1000)
-  }
-
   isActive(routeOrKey: string): boolean {
     return this.router.url === routeOrKey;
   }
