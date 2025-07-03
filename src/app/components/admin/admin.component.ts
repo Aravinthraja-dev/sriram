@@ -22,6 +22,7 @@ export class AdminComponent {
     ) {
         config.position = 'end';
         config.backdropClass = 'bg-info';
+        config.backdrop = 'static';
         config.keyboard = false;
 
         this.router.events

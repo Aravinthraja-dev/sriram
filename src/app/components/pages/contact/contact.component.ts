@@ -22,7 +22,7 @@ export class ContactComponent implements OnInit {
   latitude = '12.202011662906592'
   longitude = '78.32207100633755'
 
-  bannerurl: ImageForm = {
+  bannerurl: Partial<ImageForm> = {
     imageTitle: '',
     image: '',
     PageCategory: '',

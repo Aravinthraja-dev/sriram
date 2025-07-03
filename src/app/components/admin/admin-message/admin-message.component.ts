@@ -56,7 +56,7 @@ export class AdminMessageComponent implements OnInit {
   async deleteMessage(messageId: string) {
     const modalRef = this.modalService.open(ConfirmDialogComponent, {
       centered: true,
-      backdrop: 'static',
+      backdrop: false,
       keyboard: false,
     });
 

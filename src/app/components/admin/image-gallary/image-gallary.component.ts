@@ -98,7 +98,7 @@ export class ImageGallaryComponent implements OnInit {
     const matRef = this.modalService.open(ImageFormComponent, {
       centered: true,
       size: 'lg',
-      backdrop: 'static',
+      backdrop: false,
       keyboard: false
     })
   }
@@ -107,7 +107,7 @@ export class ImageGallaryComponent implements OnInit {
     const matRef = this.modalService.open(ImageFormComponent, {
       centered: true,
       size: 'lg',
-      backdrop: 'static',
+      backdrop: false,
       keyboard: false,
     })
 

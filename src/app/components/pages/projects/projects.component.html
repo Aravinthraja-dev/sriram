@@ -33,7 +33,7 @@
         <ng-container>
           <div class="col d-flex justify-content-center">
             <div class="card shadow-sm">
-              <img [src]="p.imageUrl" class="bd-placeholder-img card-img-top" role="img">
+              <img [src]="p.imageUrl || p.imageBase64" class="bd-placeholder-img card-img-top" role="img">
               <div class="card-body">
                 <p class="card-text card-description">{{ p.projectDescription }}</p>
                 <p class="card-text card-title">{{ p.projectTitle }}</p>

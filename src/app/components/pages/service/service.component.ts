@@ -20,7 +20,7 @@ export class ServiceComponent implements OnInit {
   isHovered: boolean = false;
 
 
-  serviceBanner: ImageForm = {
+  serviceBanner: Partial<ImageForm> = {
     imageTitle: '',
     image: '',
     PageCategory: '',

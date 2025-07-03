@@ -10,20 +10,20 @@ import { ImageService } from 'src/app/shared/services/image.service';
   imports: []
 })
 export class AboutComponent implements OnInit {
-  aboutBanner: ImageForm = {
+  aboutBanner: Partial<ImageForm> = {
     imageTitle: '',
     image: '',
     PageCategory: '',
     PageSubCategory: ''
   };
-  ourstory: ImageForm = {
+  ourstory: Partial<ImageForm> = {
     imageTitle: '',
     image: '',
     PageCategory: '',
     PageSubCategory: ''
   }
 
-  whoweare: ImageForm = {
+  whoweare: Partial<ImageForm> = {
     imageTitle: '',
     image: '',
     PageCategory: '',

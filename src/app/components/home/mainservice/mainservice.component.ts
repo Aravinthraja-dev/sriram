@@ -12,13 +12,13 @@ import { ImageService } from 'src/app/shared/services/image.service';
     standalone: true,
 })
 export class MainserviceComponent implements OnInit{
-  buliding: ImageForm = {
+  buliding: Partial<ImageForm> = {
     imageTitle: '',
     image: '',
     PageCategory: '',
     PageSubCategory: ''
   }; 
-  highway: ImageForm = {
+  highway:Partial <ImageForm> = {
     imageTitle: '',
     image: '',
     PageCategory: '',

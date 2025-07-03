@@ -5,8 +5,10 @@ import { ProjectService } from 'src/app/shared/services/project.service';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { catchError, of, Subscription, tap } from 'rxjs';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { UpperCasePipe } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProductFormComponent } from '../product-form/product-form.component';
 
 @Component({
   selector: 'app-admin-project',
@@ -14,13 +16,13 @@ import { UpperCasePipe } from '@angular/common';
   styleUrls: ['./admin-project.component.css'],
   standalone: true,
   imports: [
-    UpperCasePipe, RouterLink,
+    UpperCasePipe,
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
   ]
 })
-export class AdminProjectComponent implements OnInit{
+export class AdminProjectComponent implements OnInit {
 
   displayedColumns: string[] = ['projectTitle', 'projectDescription', 'projectInr', 'projectStatus', 'edit'];
   dataSource = new MatTableDataSource<Project>();
@@ -31,7 +33,8 @@ export class AdminProjectComponent implements OnInit{
 
   constructor(
     private projectService: ProjectService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -58,7 +61,12 @@ export class AdminProjectComponent implements OnInit{
   }
 
   addNewProject() {
-    this.router.navigate(['/admin/dashboard/new'])
+    const matRef = this.modalService.open(ProductFormComponent, {
+      centered: true,
+      size: 'lg',
+      backdrop: false,
+      keyboard: false
+    })
   }
 
   onFilter(input: string): void {
@@ -66,9 +74,15 @@ export class AdminProjectComponent implements OnInit{
   }
 
   editProject(key: string) {
-    this.router.navigate(['/admin/dashboard/', key]);
+    const matRef = this.modalService.open(ProductFormComponent, {
+      centered: true,
+      size: 'lg',
+      backdrop: false,
+      keyboard: false,
+    })
+    matRef.componentInstance.id = key;
   }
- 
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

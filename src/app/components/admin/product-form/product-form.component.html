@@ -1,4 +1,7 @@
-<h2 class="fw-bold mb-0">{{ isEditMode? 'Edit Project' : 'New Project' }} </h2>
+<div class="modal-header">
+  <h2 class="fw-bold mb-0">{{ isEditMode? 'Edit Project' : 'New Project' }} </h2>
+  <button type="button" class="btn-close" (click)="closeModel()"></button>
+</div>
 <div class="container">
   <div class="bg-body-tertiary rounded">
     <div class="row g-4 align-items-md-center">
@@ -77,34 +80,17 @@
             </div>
             }
           </div>
+          <!-- Image upload Section -->
           <div class="col-4">
             <label for="image" class="col-form-label">Upload Image</label>
           </div>
           <div class="col-8">
-            <app-file-input 
-              accept="image/*" 
-              [required]="true"  
-              [displayFileName]="selectedFileName"
-              (fileSelected)="onFileSelected($event)">
-            </app-file-input>
-          </div>
-          <!---Project Image URL--->
-          <!-- <div class="col-4">
-            <label for="imageUrl" class="col-form-label">Image Url</label>
-          </div>
-          <div class="col-8">
-            <input id="imageUrl" type="text" class="form-control" name="imageUrl" required
-              [(ngModel)]="project.imageUrl" #imageUrl="ngModel">
-            @if (imageUrl.touched && imageUrl.invalid) {
-            <div class="error-message">
-              @if (imageUrl.errors?.['required']) {
-              <div>
-                Image Url is required.
-              </div>
-              }
+            <div class="file-input-wrapper">
+              <app-file-input accept="image/*" [required]="true" [displayFileName]="selectedFileName"
+                (fileSelected)="onFileSelected($event)">
+              </app-file-input>
             </div>
-            }
-          </div> -->
+          </div>
           <!---Project Status--->
           <div class="col-4">
             <label for="projectStatus" class="col-form-label">Status</label>
@@ -158,19 +144,20 @@
             </div>
             }
           </div>
-          <div class="d-flex justify-content-between mt-2">
+          <div class="d-flex justify-content-between mt-5">
             <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Great,
               thanks!</button>
             @if (isEditMode) {
-              <button type="button" class="btn btn-danger" (click)="openDeleteModal()">Delete</button>
+            <button type="button" class="btn btn-danger" (click)="openDeleteModal()">Delete</button>
             }
           </div>
         </form>
       </div>
-        <!---Side Card--->
+      <!---Side Card--->
       <div class="col-md-6 image-preview">
         <div class="card shadow-sm">
-          <img [src]="previewImage || currentImageUrl ? previewImage || currentImageUrl: 'assets/preview.jpg'" class="bd-placeholder-img card-img-top" role="img">
+          <img [src]="previewImage || currentImageUrl ? previewImage || currentImageUrl: 'assets/preview.jpg'"
+            class="bd-placeholder-img card-img-top" role="img">
           <div class="card-body">
             <p class="card-text card-description">{{ project.projectDescription }}</p>
             <p class="card-text card-title">{{ project.projectTitle }}</p>

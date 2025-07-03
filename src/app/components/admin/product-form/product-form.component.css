@@ -106,3 +106,11 @@
     position: relative;
     top: 5px;
 }
+
+.file-input-wrapper {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  width: 100%;
+}

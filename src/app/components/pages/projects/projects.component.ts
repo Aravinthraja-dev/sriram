@@ -26,7 +26,7 @@ export class ProjectsComponent implements OnInit {
   limit = 6;
   hasMore = true;
 
-  projectBanner: ImageForm = {
+  projectBanner: Partial<ImageForm> = {
     imageTitle: '',
     image: '',
     PageCategory: '',
@@ -124,6 +124,7 @@ export class ProjectsComponent implements OnInit {
           if (newProjects.length > 0) {
             this.project = [...this.project, ...newProjects];
             this.filteredProject = [...this.project];
+            console.log('filtered project ', this.filteredProject)
             this.lastKey = newProjects[newProjects.length - 1].key;
           }
           this.isLoading = false;

@@ -139,6 +139,14 @@
     width: 100%;
 }
 
+.file-input-wrapper {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  width: 100%;
+}
+
 /* Add this to make columns take equal width on desktop */
 @media (min-width: 768px) {
 

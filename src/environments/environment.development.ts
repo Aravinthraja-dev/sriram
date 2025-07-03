@@ -1,11 +1,12 @@
 export const environment = {
     firebaseConfig : {
-        apiKey: "AIzaSyDVoZYTXkrsmT0QblteikatYTAJb5UrAY4",
-        authDomain: "sriram-8e959.firebaseapp.com",
-        projectId: "sriram-8e959",
-        storageBucket: "sriram-8e959.appspot.com",
-        messagingSenderId: "894842052529",
-        appId: "1:894842052529:web:a46b0dd06e5437c1792790",
-        measurementId: "G-NBDCS4EMT3"
-    }  
-}
+        apiKey: "AIzaSyCyG-a772hDE-izes7wAEBJG-eDMs2OZMs",
+        authDomain: "sriramgroup-91e55.firebaseapp.com",
+        projectId: "sriramgroup-91e55",
+        storageBucket: "sriramgroup-91e55.firebasestorage.app",
+        messagingSenderId: "677100864323",
+        appId: "1:677100864323:web:486dea69a168195b3825f6",
+        measurementId: "G-J0T96Z0S4W"
+    }
+};
+

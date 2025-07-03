@@ -15,11 +15,11 @@ import { ScrollAnimateDirective } from 'src/app/shared/directives/scrollAnimate'
 export class MainaboutComponent implements OnInit {
   bgabout = "assets/background.jpg"
 
-  about: ImageForm = {
+  about: Partial<ImageForm> = {
     imageTitle: '',
     image: '',
     PageCategory: '',
-    PageSubCategory: ''
+    PageSubCategory: '',
   };
 
   constructor(

@@ -5,6 +5,7 @@ export interface Project {
   projectStatus: string;
   imageUrl: string;
   imageFileName: string;
+  imageBase64: string;
 }
   
 export interface SlideInterface {

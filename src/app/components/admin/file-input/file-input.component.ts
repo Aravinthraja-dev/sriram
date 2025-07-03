@@ -16,7 +16,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
     </div>
   `,
   styles: [`
-    span { width: 70% }
+    span { width: 50% }
     `], 
   standalone: true
 })
